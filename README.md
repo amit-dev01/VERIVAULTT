@@ -1,4 +1,4 @@
-# 🛡️ VeriVault
+#  VeriVault
 
 > **Zero-knowledge academic credential verification using ERC-5192 Soulbound Tokens on Polygon Amoy and off-chain Salted Merkle Trees. Enables instant, tamper-proof degree verification and selective attribute disclosure with zero PII stored on-chain (DPDP & GDPR compliant).**
 
