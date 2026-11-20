@@ -19,6 +19,8 @@ import {
   AlertCircle,
   Trash2,
   FolderOpen,
+  ArrowRight,
+  Lock,
 } from "lucide-react";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -33,7 +35,7 @@ import {
   compressPayload,
 } from "@/lib/crypto";
 
-// Default disclosure presets as specified
+// Default disclosure presets
 const DEFAULT_DISCLOSED_KEYS: Record<string, boolean> = {
   DEGREE: true,
   GRAD_YEAR: true,
@@ -260,32 +262,36 @@ export default function WalletPage() {
   const degreeAttr = credential?.attributes?.find((a) => a.key === "DEGREE")?.value || "Academic Credential";
 
   return (
-    <div className="container max-w-6xl mx-auto px-4 py-8 space-y-8">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-6">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/20">
-            <Wallet className="h-7 w-7" />
+    <div className="max-w-[1248px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-10 sm:space-y-12">
+      {/* -------------------------------------------------------------------- */}
+      {/* Editorial Page Header with Momentum Branding                        */}
+      {/* -------------------------------------------------------------------- */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#ECE8F2]">
+        <div className="space-y-3 max-w-2xl">
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ef4444] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ef4444]" />
+            </span>
+            <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-[0.12em] text-[#592B9B]">
+              Student Zero-Knowledge Vault
+            </span>
           </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-              Student Privacy Wallet
-              <Badge variant="outline" className="border-violet-500/40 text-violet-300 font-mono text-[10px]">
-                Zero-Knowledge Proof Vault
-              </Badge>
-            </h1>
-            <p className="text-sm text-slate-400">
-              Manage Soulbound degrees, control selective disclosure, and generate verifiable cryptographic proofs
-            </p>
-          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-[-0.04em] text-[#1A1523] font-['Plus_Jakarta_Sans',sans-serif] leading-[1.05]">
+            Student Privacy Wallet
+          </h1>
+          <p className="text-base text-[#55505F] font-['Inter',sans-serif] leading-relaxed">
+            Manage Soulbound degrees, control selective disclosure with cryptographic switches, and generate verifiable instant proofs.
+          </p>
         </div>
 
         {credential && (
           <Button
             size="sm"
-            variant="ghost"
+            variant="outline"
             onClick={handleClearCredential}
-            className="text-xs text-slate-400 hover:text-red-400 gap-1.5 self-start sm:self-auto"
+            className="text-xs text-[#55505F] hover:text-red-600 border-[#ECE8F2] hover:border-red-200 gap-1.5 self-start sm:self-auto rounded-full"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Clear Credential
@@ -301,25 +307,28 @@ export default function WalletPage() {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className={`border-2 border-dashed transition-all text-center p-8 sm:p-12 ${
+          className={`rounded-[32px] border-2 border-dashed transition-all duration-300 text-center p-8 sm:p-16 ${
             isDragging
-              ? "border-indigo-500 bg-indigo-950/30 scale-[1.01]"
-              : "border-slate-800 bg-slate-900/40 hover:border-slate-700"
+              ? "border-[#592B9B] bg-[#F7F5FB] scale-[1.01]"
+              : "border-[#ECE8F2] bg-white hover:border-[#592B9B]/40 shadow-sm"
           }`}
         >
-          <div className="max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 rounded-2xl bg-indigo-500/10 text-indigo-400 mx-auto flex items-center justify-center border border-indigo-500/20 shadow-inner">
-              <Upload className="h-8 w-8" />
+          <div className="max-w-lg mx-auto space-y-5">
+            <div className="h-20 w-20 rounded-3xl bg-[#F7F5FB] text-[#592B9B] mx-auto flex items-center justify-center border border-[rgba(89,43,155,0.15)] shadow-sm">
+              <Upload className="h-9 w-9 text-[#592B9B]" />
             </div>
-            <div className="space-y-1.5">
-              <h3 className="text-lg font-bold text-white">Import Your Soulbound Credential</h3>
-              <p className="text-xs sm:text-sm text-slate-400">
-                Drag and drop your issued <code className="font-mono text-indigo-300">VeriVault-Credential-*.json</code> file,
+
+            <div className="space-y-2">
+              <h3 className="text-2xl font-extrabold text-[#1A1523] font-['Plus_Jakarta_Sans',sans-serif]">
+                Import Your Soulbound Credential
+              </h3>
+              <p className="text-sm text-[#55505F] leading-relaxed">
+                Drag and drop your issued <code className="font-mono text-xs bg-[#F7F5FB] text-[#592B9B] px-2 py-0.5 rounded border border-[#ECE8F2]">VeriVault-Credential-*.json</code> file,
                 or browse your file system.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -329,22 +338,23 @@ export default function WalletPage() {
               />
               <Button
                 onClick={() => fileInputRef.current?.click()}
-                className="w-full sm:w-auto gap-2"
+                className="w-full sm:w-auto gap-2 bg-[#F16221] hover:bg-[#d95216] text-white rounded-full px-7 py-3 font-bold shadow-md shadow-[#F16221]/20 hover:scale-[1.02]"
               >
                 <FolderOpen className="h-4 w-4" />
                 Browse File
               </Button>
               <Button
-                variant="secondary"
+                variant="outline"
                 onClick={loadDemoCredential}
-                className="w-full sm:w-auto gap-2 border border-slate-700"
+                className="w-full sm:w-auto gap-2 border-[#ECE8F2] hover:bg-[#F7F5FB] text-[#1A1523] rounded-full px-6 py-3 font-semibold"
               >
-                <Sparkles className="h-4 w-4 text-violet-400" />
+                <Sparkles className="h-4 w-4 text-[#592B9B]" />
                 Load Sample Degree
               </Button>
             </div>
-            <p className="text-[11px] text-slate-500">
-              All processing happens 100% locally in your browser. No private keys or unhashed credentials are sent to any server.
+
+            <p className="text-xs text-[#55505F]/75 pt-2">
+              🔒 100% client-side privacy. Zero private keys or plaintext credentials leave your device.
             </p>
           </div>
         </Card>
@@ -352,61 +362,62 @@ export default function WalletPage() {
         /* ------------------------------------------------------------------ */
         /* Main Wallet Interface: Degree Card + Selective Disclosure Matrix  */
         /* ------------------------------------------------------------------ */
-        <div className="space-y-8">
+        <div className="space-y-10">
           {/* Degree Card (Visual Certificate Shell) */}
-          <Card className="relative overflow-hidden border-indigo-950/60 bg-gradient-to-br from-slate-900 via-indigo-950/30 to-slate-950 shadow-2xl p-6 sm:p-8">
-            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-              <Award className="h-48 w-48 text-indigo-400" />
+          <Card className="relative overflow-hidden rounded-[32px] border border-[rgba(89,43,155,0.15)] bg-gradient-to-br from-white via-[#F7F5FB] to-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-10">
+            {/* Watermark Logo */}
+            <div className="absolute top-0 right-0 p-8 opacity-[0.04] pointer-events-none">
+              <Award className="h-64 w-64 text-[#592B9B]" />
             </div>
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Badge variant="default" className="text-xs">
+              <div className="space-y-4 max-w-2xl">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <Badge variant="default" className="text-xs font-semibold">
                     ERC-5192 Soulbound
                   </Badge>
                   <Badge variant="success" className="text-xs">
                     Polygon Amoy
                   </Badge>
-                  <span className="text-xs font-mono text-indigo-300">
+                  <span className="text-xs font-mono font-bold text-[#592B9B] bg-white px-2.5 py-1 rounded-full border border-[#ECE8F2]">
                     Token #{credential.tokenId || 1}
                   </span>
                 </div>
 
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  <h2 className="text-2xl sm:text-4xl font-extrabold text-[#1A1523] tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
                     {degreeAttr}
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1 flex items-center gap-2">
-                    <span>Issued by:</span>
-                    <span className="font-mono text-indigo-300">
+                  <p className="text-xs sm:text-sm text-[#55505F] mt-1.5 flex flex-wrap items-center gap-2">
+                    <span>Issued by Registrar:</span>
+                    <span className="font-mono font-medium text-[#592B9B] bg-white px-2 py-0.5 rounded border border-[#ECE8F2]">
                       {credential.issuerAddress}
                     </span>
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 pt-1">
+                <div className="flex flex-wrap items-center gap-4 text-xs text-[#55505F] pt-1">
                   <div>
-                    <span className="text-slate-500">Contract:</span>{" "}
+                    <span className="font-semibold text-[#1A1523]">Contract:</span>{" "}
                     <span className="font-mono">{credential.contractAddress?.slice(0, 8)}...</span>
                   </div>
                   <div>
-                    <span className="text-slate-500">Committed Root:</span>{" "}
-                    <span className="font-mono text-indigo-300">
+                    <span className="font-semibold text-[#1A1523]">Committed Root:</span>{" "}
+                    <span className="font-mono text-[#592B9B]">
                       {credential.rootHash?.slice(0, 10)}...{credential.rootHash?.slice(-6)}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-2.5">
+              <div className="flex flex-col sm:flex-row gap-2.5 shrink-0">
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => fileInputRef.current?.click()}
-                  className="gap-2 border-slate-700 text-xs"
+                  className="gap-2 border-[#ECE8F2] bg-white hover:bg-[#F7F5FB] text-xs font-semibold rounded-full"
                 >
-                  <Upload className="h-3.5 w-3.5" />
+                  <Upload className="h-3.5 w-3.5 text-[#592B9B]" />
                   Replace Credential
                 </Button>
                 <input
@@ -426,20 +437,29 @@ export default function WalletPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Column: Selective Disclosure Matrix */}
             <div className="lg:col-span-7 space-y-4">
-              <Card className="border-slate-800 bg-slate-900/60 shadow-xl">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-indigo-400" />
-                      Selective Disclosure Matrix
-                    </CardTitle>
-                    <Badge variant="outline" className="text-xs">
-                      {disclosedCount} of {credential.attributes.length} Disclosed
-                    </Badge>
+              <Card className="rounded-[28px] border border-[rgba(89,43,155,0.12)] bg-white shadow-xl overflow-hidden">
+                {/* Traffic lights header */}
+                <div className="flex items-center justify-between px-6 sm:px-8 py-4 border-b border-[#ECE8F2] bg-[#F7F5FB]/60">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                    <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                    <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                    <span className="ml-2 font-['Sometype_Mono',monospace] text-[11px] font-bold uppercase tracking-wider text-[#592B9B]">
+                      Zero-Knowledge Disclosure Matrix
+                    </span>
                   </div>
-                  <CardDescription>
-                    Toggle which attributes are revealed to the verifier. Attributes toggled &quot;Hide&quot; remain
-                    cryptographically blinded and impossible to deduce.
+                  <Badge variant="outline" className="text-xs bg-white text-[#592B9B] font-bold">
+                    {disclosedCount} of {credential.attributes.length} Disclosed
+                  </Badge>
+                </div>
+
+                <CardHeader className="space-y-1">
+                  <CardTitle className="text-xl sm:text-2xl font-extrabold text-[#1A1523] flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-[#592B9B]" />
+                    Attribute Disclosure Controls
+                  </CardTitle>
+                  <CardDescription className="text-sm text-[#55505F]">
+                    Toggle attributes to reveal to verifiers. Blinded fields are completely omitted from the proof, making deduction mathematically impossible.
                   </CardDescription>
                 </CardHeader>
 
@@ -454,42 +474,42 @@ export default function WalletPage() {
                     return (
                       <div
                         key={attr.key}
-                        className={`p-4 rounded-xl border transition-all flex items-center justify-between gap-4 ${
+                        className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 flex items-center justify-between gap-4 ${
                           isRevealed
-                            ? "border-indigo-500/40 bg-indigo-950/20"
-                            : "border-slate-800/80 bg-slate-950/40 opacity-75"
+                            ? "border-[rgba(89,43,155,0.25)] bg-[#F7F5FB]/70 shadow-sm"
+                            : "border-[#ECE8F2] bg-white opacity-85"
                         }`}
                       >
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold text-white">
+                        <div className="space-y-1 flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-sm sm:text-base font-bold text-[#1A1523] font-['Plus_Jakarta_Sans',sans-serif]">
                               {meta.title}
                             </span>
                             {isRevealed ? (
-                              <span className="flex items-center gap-1 text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
                                 <Eye className="h-3 w-3" /> Revealed
                               </span>
                             ) : (
-                              <span className="flex items-center gap-1 text-[10px] font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded">
-                                <EyeOff className="h-3 w-3" /> Hidden (Blinded)
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#55505F] bg-[#ECE8F2] px-2.5 py-0.5 rounded-full">
+                                <EyeOff className="h-3 w-3" /> Blinded
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-slate-400">{meta.description}</p>
-                          <div className="pt-1 flex items-center gap-2">
-                            <span className="text-xs font-mono font-medium text-indigo-300">
+                          <p className="text-xs text-[#55505F]">{meta.description}</p>
+                          <div className="pt-1 flex flex-wrap items-center gap-2">
+                            <span className="text-xs font-mono font-bold text-[#592B9B] truncate">
                               {isRevealed ? attr.value : "••••••••••••••••"}
                             </span>
                             {isRevealed && (
-                              <span className="text-[10px] text-slate-500 font-mono truncate max-w-[140px]">
-                                salt: {attr.salt.slice(0, 10)}...
+                              <span className="text-[10px] text-[#55505F] font-mono truncate max-w-[140px] bg-white px-2 py-0.5 rounded border border-[#ECE8F2]">
+                                salt: {attr.salt.slice(0, 8)}...
                               </span>
                             )}
                           </div>
                         </div>
 
                         {/* Toggle Switch */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center shrink-0">
                           <Switch
                             id={`switch-${attr.key}`}
                             checked={isRevealed}
@@ -515,20 +535,17 @@ export default function WalletPage() {
 
             {/* Right Column: Live QR Code & Sharing Link */}
             <div className="lg:col-span-5 space-y-6">
-              <Card className="border-slate-800 bg-slate-900/80 shadow-2xl">
-                <CardHeader className="text-center pb-2">
-                  <div className="mx-auto h-10 w-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20 mb-2">
-                    <QrCode className="h-5 w-5" />
-                  </div>
-                  <CardTitle className="text-base">Instant Verification QR Code</CardTitle>
-                  <CardDescription className="text-xs">
-                    Scan with any smartphone or camera to instantly verify disclosed credentials against Polygon Amoy.
-                  </CardDescription>
-                </CardHeader>
+              <Card className="rounded-[28px] border border-[rgba(89,43,155,0.12)] bg-white shadow-xl overflow-hidden">
+                <div className="flex items-center justify-center px-6 py-4 border-b border-[#ECE8F2] bg-[#F7F5FB]/60">
+                  <span className="font-['Sometype_Mono',monospace] text-[11px] font-bold uppercase tracking-wider text-[#592B9B] flex items-center gap-1.5">
+                    <QrCode className="h-3.5 w-3.5" />
+                    Instant Verification QR Code
+                  </span>
+                </div>
 
-                <CardContent className="space-y-6 flex flex-col items-center pt-2">
+                <CardContent className="space-y-6 flex flex-col items-center pt-6">
                   {/* Dynamic QR Code Canvas */}
-                  <div className="p-4 bg-white rounded-2xl shadow-xl flex items-center justify-center border-4 border-indigo-500/20">
+                  <div className="p-4 bg-white rounded-2xl shadow-md flex items-center justify-center border-2 border-[#ECE8F2]">
                     {compressedString ? (
                       <QRCodeSVG
                         value={getVerificationUrl()}
@@ -537,43 +554,43 @@ export default function WalletPage() {
                         includeMargin={false}
                       />
                     ) : (
-                      <div className="h-[210px] w-[210px] flex items-center justify-center text-slate-400 text-xs text-center p-4">
+                      <div className="h-[210px] w-[210px] flex items-center justify-center text-[#55505F] text-xs text-center p-4">
                         Select at least one attribute to generate proof QR
                       </div>
                     )}
                   </div>
 
                   {/* Summary of Disclosure */}
-                  <div className="w-full text-xs text-slate-400 space-y-1.5 p-3 rounded-lg bg-slate-950/70 border border-slate-800">
-                    <div className="flex justify-between items-center text-slate-300">
-                      <span>Disclosed Claims:</span>
-                      <span className="font-semibold text-indigo-400">
+                  <div className="w-full text-xs text-[#55505F] space-y-2 p-4 rounded-2xl bg-[#F7F5FB] border border-[#ECE8F2]">
+                    <div className="flex justify-between items-center text-[#1A1523]">
+                      <span className="font-medium">Disclosed Claims:</span>
+                      <span className="font-bold text-[#592B9B]">
                         {disclosedCount} properties
                       </span>
                     </div>
-                    <div className="flex justify-between items-center text-slate-300">
-                      <span>Payload Compression:</span>
-                      <span className="font-mono text-emerald-400">
+                    <div className="flex justify-between items-center text-[#1A1523]">
+                      <span className="font-medium">Payload Compression:</span>
+                      <span className="font-mono font-semibold text-emerald-700">
                         {compressedString ? `${compressedString.length} chars (LZ-String)` : "None"}
                       </span>
                     </div>
-                    <div className="flex justify-between items-center text-slate-300">
-                      <span>Target Token ID:</span>
-                      <span className="font-mono">#{credential.tokenId || 1}</span>
+                    <div className="flex justify-between items-center text-[#1A1523]">
+                      <span className="font-medium">Target Token ID:</span>
+                      <span className="font-mono font-bold">#{credential.tokenId || 1}</span>
                     </div>
                   </div>
 
                   {/* Copy Link & Direct Open Actions */}
-                  <div className="w-full space-y-2.5">
+                  <div className="w-full space-y-3">
                     <Button
                       onClick={copyVerificationLink}
                       disabled={!compressedString}
-                      className="w-full gap-2 text-sm"
+                      className="w-full gap-2 text-sm font-bold bg-[#F16221] hover:bg-[#d95216] text-white rounded-full py-6 shadow-md shadow-[#F16221]/20 hover:scale-[1.02] active:scale-[0.98]"
                     >
                       {copiedLink ? (
                         <>
-                          <Check className="h-4 w-4 text-emerald-300" />
-                          Link Copied!
+                          <Check className="h-4 w-4" />
+                          Link Copied to Clipboard!
                         </>
                       ) : (
                         <>
@@ -591,10 +608,10 @@ export default function WalletPage() {
                         className="block w-full"
                       >
                         <Button
-                          variant="secondary"
-                          className="w-full gap-2 text-xs border border-slate-700 text-slate-300 hover:text-white"
+                          variant="outline"
+                          className="w-full gap-2 text-xs font-semibold border-[#ECE8F2] hover:bg-[#F7F5FB] text-[#1A1523] rounded-full py-5"
                         >
-                          <ExternalLink className="h-3.5 w-3.5" />
+                          <ExternalLink className="h-3.5 w-3.5 text-[#592B9B]" />
                           Test in Verification Portal
                         </Button>
                       </Link>
@@ -604,21 +621,21 @@ export default function WalletPage() {
               </Card>
 
               {/* Security Explainer Card */}
-              <Card className="border-slate-800 bg-slate-950/40">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                    How Selective Disclosure Works
-                  </CardTitle>
+              <Card className="rounded-[28px] border border-[rgba(89,43,155,0.12)] bg-[#F7F5FB]/70">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                    <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-wider text-[#592B9B]">
+                      Zero-Knowledge Privacy Proof
+                    </span>
+                  </div>
                 </CardHeader>
-                <CardContent className="text-[11px] text-slate-400 space-y-2 leading-relaxed">
+                <CardContent className="text-xs text-[#55505F] space-y-2.5 leading-relaxed pt-0">
                   <p>
-                    When you hide an attribute (like your Name or Roll Number), its raw string and salt
-                    are removed from the generated payload.
+                    When you turn off an attribute (like your Name or Roll Number), its raw plaintext and private salt are stripped from the payload.
                   </p>
                   <p>
-                    Only the cryptographic hashes of sibling branches are sent. The verifier proves mathematically
-                    that your revealed claims combine with those sibling hashes to match the official Merkle root on Polygon Amoy.
+                    Only the intermediate cryptographic hashes of sibling branches are sent. Verifiers prove that your revealed claims combine with those sibling hashes to match the official Merkle root on Polygon Amoy.
                   </p>
                 </CardContent>
               </Card>

@@ -29,15 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-slate-950 text-slate-100 flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-[#F7F5FB] text-[#1A1523] flex flex-col selection:bg-[#592B9B]/10 selection:text-[#592B9B]`}
       >
         <Web3Provider>
           <Navbar />
           <main className="flex-1 flex flex-col">{children}</main>
           <Footer />
-          <Toaster />
+          <Toaster richColors position="top-right" />
         </Web3Provider>
       </body>
     </html>

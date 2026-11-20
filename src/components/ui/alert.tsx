@@ -3,19 +3,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border p-4 text-sm [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+  "relative w-full rounded-2xl border p-4 sm:p-5 text-sm shadow-sm [&>svg~*]:pl-8 [&>svg+div]:translate-y-[-2px] [&>svg]:absolute [&>svg]:left-4 sm:[&>svg]:left-5 [&>svg]:top-4 sm:[&>svg]:top-5",
   {
     variants: {
       variant: {
-        default: "bg-slate-900 border-slate-800 text-slate-100 [&>svg]:text-slate-100",
+        default:
+          "bg-white border-[#ECE8F2] text-[#1A1523] [&>svg]:text-[#592B9B]",
         destructive:
-          "border-red-900/50 bg-red-950/30 text-red-200 [&>svg]:text-red-400",
+          "border-red-200 bg-red-50/90 text-red-900 [&>svg]:text-red-600",
         warning:
-          "border-amber-900/50 bg-amber-950/30 text-amber-200 [&>svg]:text-amber-400",
+          "border-amber-200 bg-amber-50/90 text-amber-900 [&>svg]:text-amber-600",
         info:
-          "border-indigo-900/50 bg-indigo-950/30 text-indigo-200 [&>svg]:text-indigo-400",
+          "border-[rgba(89,43,155,0.2)] bg-[#F7F5FB] text-[#1A1523] [&>svg]:text-[#592B9B]",
         success:
-          "border-emerald-900/50 bg-emerald-950/30 text-emerald-200 [&>svg]:text-emerald-400",
+          "border-emerald-200 bg-emerald-50/90 text-emerald-900 [&>svg]:text-emerald-600",
       },
     },
     defaultVariants: {
@@ -43,7 +44,7 @@ const AlertTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h5
     ref={ref}
-    className={cn("mb-1 font-semibold leading-none tracking-tight", className)}
+    className={cn("mb-1 font-bold leading-none tracking-tight font-['Plus_Jakarta_Sans',sans-serif]", className)}
     {...props}
   />
 ));
@@ -55,7 +56,7 @@ const AlertDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("text-xs [&_p]:leading-relaxed opacity-90", className)}
+    className={cn("text-xs sm:text-sm font-['Inter',sans-serif] leading-relaxed opacity-95", className)}
     {...props}
   />
 ));

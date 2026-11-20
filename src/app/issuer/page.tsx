@@ -34,6 +34,8 @@ import {
   Radio,
   Zap,
   Building2,
+  ArrowRight,
+  Lock,
 } from "lucide-react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
@@ -405,39 +407,47 @@ export default function IssuerPage() {
   };
 
   return (
-    <div className="container max-w-6xl mx-auto px-4 py-8 space-y-8">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-6">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-600/20">
-            <GraduationCap className="h-7 w-7" />
+    <div className="max-w-[1248px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-10 sm:space-y-12">
+      {/* -------------------------------------------------------------------- */}
+      {/* Editorial Page Header with Momentum Branding                        */}
+      {/* -------------------------------------------------------------------- */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#ECE8F2]">
+        <div className="space-y-3 max-w-2xl">
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ef4444] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ef4444]" />
+            </span>
+            <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-[0.12em] text-[#592B9B]">
+              Institutional Registrar Gateway
+            </span>
           </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-              University Portal
-              <Badge variant="outline" className="border-indigo-500/40 text-indigo-300 font-mono text-[10px]">
-                Issuer Gateway
-              </Badge>
-            </h1>
-            <p className="text-sm text-slate-400">
-              Authorized Institution Interface for EIP-5192 Soulbound Degree Minting & Revocation
-            </p>
-          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-[-0.04em] text-[#1A1523] font-['Plus_Jakarta_Sans',sans-serif] leading-[1.05]">
+            University Portal
+          </h1>
+          <p className="text-base text-[#55505F] font-['Inter',sans-serif] leading-relaxed">
+            Mint zero-plaintext EIP-5192 Soulbound degrees and register cryptographic revocation audits on Polygon Amoy.
+          </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
-          <Badge variant={isPolygonAmoy ? "success" : "destructive"} className="text-xs">
-            {isPolygonAmoy ? "Polygon Amoy (80002)" : "Wrong Network"}
-          </Badge>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#ECE8F2] shadow-sm text-xs font-['Sometype_Mono',monospace]">
+            <span className={`w-2 h-2 rounded-full ${isPolygonAmoy ? "bg-emerald-500 animate-pulse" : "bg-red-500"}`} />
+            <span className="font-semibold text-[#1A1523]">
+              {isPolygonAmoy ? "Polygon Amoy 80002" : "Switch to Amoy"}
+            </span>
+          </div>
+
           <a
             href={`https://amoy.polygonscan.com/address/${VERIVAULT_CONTRACT_ADDRESS}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-mono"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F7F5FB] hover:bg-white border border-[#ECE8F2] hover:border-[#592B9B]/30 text-xs font-semibold text-[#592B9B] transition-all group shadow-sm"
             title="Inspect on Polygonscan"
           >
-            Contract
-            <ExternalLink className="h-3 w-3" />
+            <span>Contract</span>
+            <ExternalLink className="h-3 w-3 text-[#592B9B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
       </div>
@@ -446,28 +456,27 @@ export default function IssuerPage() {
       {/* 1. Wallet & Role Verification Banners                                */}
       {/* -------------------------------------------------------------------- */}
       {!isConnected ? (
-        <Alert variant="warning" className="border-amber-600/30 bg-amber-950/20">
-          <ShieldAlert className="h-5 w-5 text-amber-400" />
-          <AlertTitle className="text-amber-200">Wallet Not Connected</AlertTitle>
-          <AlertDescription className="text-amber-300/80">
-            You must connect an authorized university registrar wallet using the{" "}
-            <strong>Connect Wallet</strong> button in the navigation bar to access issuance and
-            revocation features.
+        <Alert variant="warning" className="border-amber-200 bg-amber-50/90 text-amber-950">
+          <ShieldAlert className="h-5 w-5 text-amber-600" />
+          <AlertTitle className="text-amber-900 font-bold">Wallet Connection Optional for Relayer</AlertTitle>
+          <AlertDescription className="text-amber-800/90 text-sm mt-1">
+            You can use the <strong>University Relayer</strong> for gasless instant minting without signing transactions,
+            or connect your registrar wallet using the <strong>Connect Wallet</strong> button to sign directly.
           </AlertDescription>
         </Alert>
       ) : !isPolygonAmoy ? (
         <Alert variant="destructive">
-          <ShieldAlert className="h-5 w-5 text-red-400" />
+          <ShieldAlert className="h-5 w-5 text-red-600" />
           <AlertTitle>Network Mismatch</AlertTitle>
-          <AlertDescription className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-1">
+          <AlertDescription className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-2">
             <span>
-              Your wallet is connected to Chain ID {chainId}. VeriVault is deployed on{" "}
+              Your connected wallet is on Chain ID {chainId}. VeriVault is deployed on{" "}
               <strong>Polygon Amoy Testnet (Chain ID 80002)</strong>.
             </span>
             <Button
               size="sm"
               variant="outline"
-              className="border-red-500/50 text-red-200 hover:bg-red-900/40 shrink-0"
+              className="border-red-300 text-red-700 hover:bg-red-100 shrink-0"
               onClick={() => switchChain?.({ chainId: polygonAmoy.id })}
             >
               Switch to Polygon Amoy
@@ -476,53 +485,37 @@ export default function IssuerPage() {
         </Alert>
       ) : isRoleLoading ? (
         <Alert variant="info">
-          <Loader2 className="h-4 w-4 animate-spin text-indigo-400" />
-          <AlertTitle>Checking Issuer Authorization...</AlertTitle>
-          <AlertDescription>
-            Validating `ISSUER_ROLE` permissions on contract {VERIVAULT_CONTRACT_ADDRESS}...
+          <Loader2 className="h-5 w-5 animate-spin text-[#592B9B]" />
+          <AlertTitle className="text-[#592B9B]">Validating Issuer Authorization...</AlertTitle>
+          <AlertDescription className="text-[#55505F] mt-1">
+            Querying <code className="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-[#ECE8F2]">ISSUER_ROLE</code> on contract {VERIVAULT_CONTRACT_ADDRESS}...
           </AlertDescription>
         </Alert>
-      ) : !hasIssuerRole ? (
-        <Alert variant="destructive">
-          <ShieldAlert className="h-5 w-5 text-red-400" />
-          <AlertTitle>Unauthorized Issuer Account</AlertTitle>
-          <AlertDescription className="space-y-1">
-            <p>
-              Connected wallet <span className="font-mono text-red-200">{address}</span> does not
-              have the <code className="px-1 py-0.5 rounded bg-red-950/60 font-mono text-[11px]">ISSUER_ROLE</code> on the VeriVault credential contract.
-            </p>
-            <p className="text-slate-400 text-[11px]">
-              Only authorized university registrars can mint Soulbound academic credentials or
-              record revocations. Please connect the contract admin or an account granted the role.
-            </p>
-          </AlertDescription>
-        </Alert>
-      ) : (
-        <Alert variant="success" className="border-emerald-600/30 bg-emerald-950/20">
-          <ShieldCheck className="h-5 w-5 text-emerald-400" />
-          <AlertTitle className="text-emerald-200 flex items-center gap-2">
-            Authorized Registrar
-            <Badge variant="success" className="text-[10px] py-0 px-2">
-              ISSUER_ROLE Active
+      ) : hasIssuerRole ? (
+        <Alert variant="success" className="border-emerald-200 bg-emerald-50/80 text-emerald-950">
+          <ShieldCheck className="h-5 w-5 text-emerald-600" />
+          <AlertTitle className="text-emerald-900 font-bold flex items-center gap-2">
+            Authorized University Registrar Active
+            <Badge variant="success" className="text-[10px] py-0.5 px-2.5">
+              ISSUER_ROLE Confirmed
             </Badge>
           </AlertTitle>
-          <AlertDescription className="text-emerald-300/80">
-            Authenticated as <span className="font-mono">{address}</span>. You can issue
-            non-transferable Soulbound degrees and register cryptographic audit logs on Polygon Amoy.
+          <AlertDescription className="text-emerald-800/90 text-sm mt-1">
+            Authenticated wallet <span className="font-mono font-medium">{address}</span> has on-chain authorization to mint Soulbound credentials and record revocation logs on Polygon Amoy.
           </AlertDescription>
         </Alert>
-      )}
+      ) : null}
 
       {/* -------------------------------------------------------------------- */}
       {/* Main Tabs: Issue Degree vs Revocation Registry                       */}
       {/* -------------------------------------------------------------------- */}
-      <Tabs defaultValue="issue" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-2">
-          <TabsTrigger value="issue" className="gap-2">
+      <Tabs defaultValue="issue" className="w-full space-y-8">
+        <TabsList className="grid w-full max-w-md grid-cols-2 bg-[#F7F5FB] p-1.5 rounded-full border border-[#ECE8F2]">
+          <TabsTrigger value="issue" className="gap-2 rounded-full py-2.5 text-xs sm:text-sm font-bold">
             <Send className="h-4 w-4" />
             Issue Degree
           </TabsTrigger>
-          <TabsTrigger value="revoke" className="gap-2">
+          <TabsTrigger value="revoke" className="gap-2 rounded-full py-2.5 text-xs sm:text-sm font-bold">
             <Ban className="h-4 w-4" />
             Revocation Registry
           </TabsTrigger>
@@ -531,45 +524,50 @@ export default function IssuerPage() {
         {/* ================================================================= */}
         {/* TAB 1: ISSUE DEGREE                                               */}
         {/* ================================================================= */}
-        <TabsContent value="issue" className="space-y-6 pt-4">
+        <TabsContent value="issue" className="space-y-8 focus-visible:outline-none">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Form Column */}
             <div className="lg:col-span-7">
-              <Card className="border-slate-800 bg-slate-900/60 shadow-xl">
+              <Card className="rounded-[28px] border border-[rgba(89,43,155,0.12)] bg-white shadow-[0_4px_24px_-4px_rgba(89,43,155,0.06),0_2px_8px_-2px_rgba(0,0,0,0.02)] overflow-hidden">
+                {/* Bento Traffic Lights Header */}
+                <div className="flex items-center justify-between px-6 sm:px-8 py-4 border-b border-[#ECE8F2] bg-[#F7F5FB]/60">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                    <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                    <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                    <span className="ml-2 font-['Sometype_Mono',monospace] text-[11px] font-bold uppercase tracking-wider text-[#592B9B]">
+                      EIP-5192 Soulbound Minting Console
+                    </span>
+                  </div>
+
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={fillDemoData}
+                    className="text-xs gap-1.5 h-8 border-[#ECE8F2] bg-white text-[#592B9B] hover:bg-[#F7F5FB] shadow-none"
+                  >
+                    <Sparkles className="h-3.5 w-3.5 text-[#F16221]" />
+                    <span>Fill Jadavpur Univ Demo</span>
+                  </Button>
+                </div>
+
                 <form onSubmit={handleIssueCredential}>
-                  <CardHeader>
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <CardTitle className="text-lg flex items-center gap-2">
-                        <Award className="h-5 w-5 text-indigo-400" />
-                        Academic Credential Specification
-                      </CardTitle>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant="secondary"
-                          onClick={fillDemoData}
-                          className="text-xs gap-1.5 h-8 border border-indigo-500/30 bg-indigo-950/40 text-indigo-300 hover:bg-indigo-900/60"
-                        >
-                          <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-                          Fill Demo Data (Jadavpur University)
-                        </Button>
-                        <Badge variant="default" className="text-[10px]">
-                          Zero-Plaintext
-                        </Badge>
-                      </div>
-                    </div>
-                    <CardDescription>
-                      Every attribute is individually salted client-side and hashed into a Merkle tree.
-                      Only the 32-byte Merkle root is recorded on Polygon Amoy.
+                  <CardHeader className="space-y-1.5">
+                    <CardTitle className="text-xl sm:text-2xl font-extrabold text-[#1A1523] flex items-center gap-2.5">
+                      <Award className="h-6 w-6 text-[#592B9B]" />
+                      Academic Credential Specification
+                    </CardTitle>
+                    <CardDescription className="text-sm text-[#55505F]">
+                      Each attribute is salted client-side and committed to a cryptographic Merkle tree. Only the 32-byte Merkle root touches the blockchain.
                     </CardDescription>
                   </CardHeader>
 
-                  <CardContent className="space-y-4">
-                    {/* Student Address */}
-                    <div className="space-y-1.5">
-                      <Label htmlFor="studentAddress" className="flex items-center gap-1.5">
-                        <User className="h-3.5 w-3.5 text-indigo-400" />
+                  <CardContent className="space-y-5">
+                    {/* Student Recipient Wallet Address */}
+                    <div className="space-y-2">
+                      <Label htmlFor="studentAddress" className="text-xs font-bold uppercase tracking-wider text-[#592B9B] flex items-center gap-1.5">
+                        <User className="h-3.5 w-3.5 text-[#592B9B]" />
                         Student Wallet Address (Recipient)
                       </Label>
                       <Input
@@ -581,15 +579,17 @@ export default function IssuerPage() {
                         disabled={isMinting}
                         required
                       />
-                      <p className="text-[11px] text-slate-500">
-                        The graduate&apos;s self-custody wallet that will permanently hold the soulbound NFT.
+                      <p className="text-[11px] text-[#55505F]/80">
+                        Self-custody wallet that will permanently receive the soulbound token.
                       </p>
                     </div>
 
                     {/* Student Full Name & Roll Number */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <Label htmlFor="fullName">Student Full Name</Label>
+                      <div className="space-y-2">
+                        <Label htmlFor="fullName" className="text-xs font-bold uppercase tracking-wider text-[#592B9B]">
+                          Student Full Name
+                        </Label>
                         <Input
                           id="fullName"
                           placeholder="e.g. Aarav Sharma"
@@ -599,9 +599,9 @@ export default function IssuerPage() {
                           required
                         />
                       </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="rollNumber" className="flex items-center gap-1.5">
-                          <Hash className="h-3.5 w-3.5 text-indigo-400" />
+                      <div className="space-y-2">
+                        <Label htmlFor="rollNumber" className="text-xs font-bold uppercase tracking-wider text-[#592B9B] flex items-center gap-1.5">
+                          <Hash className="h-3.5 w-3.5 text-[#592B9B]" />
                           Roll / Registration Number
                         </Label>
                         <Input
@@ -617,9 +617,9 @@ export default function IssuerPage() {
 
                     {/* Degree & Graduation Year */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <Label htmlFor="degree" className="flex items-center gap-1.5">
-                          <BookOpen className="h-3.5 w-3.5 text-indigo-400" />
+                      <div className="space-y-2">
+                        <Label htmlFor="degree" className="text-xs font-bold uppercase tracking-wider text-[#592B9B] flex items-center gap-1.5">
+                          <BookOpen className="h-3.5 w-3.5 text-[#592B9B]" />
                           Degree / Program
                         </Label>
                         <Input
@@ -631,9 +631,9 @@ export default function IssuerPage() {
                           required
                         />
                       </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="gradYear" className="flex items-center gap-1.5">
-                          <Calendar className="h-3.5 w-3.5 text-indigo-400" />
+                      <div className="space-y-2">
+                        <Label htmlFor="gradYear" className="text-xs font-bold uppercase tracking-wider text-[#592B9B] flex items-center gap-1.5">
+                          <Calendar className="h-3.5 w-3.5 text-[#592B9B]" />
                           Graduation Year
                         </Label>
                         <Input
@@ -647,13 +647,13 @@ export default function IssuerPage() {
                       </div>
                     </div>
 
-                    {/* CGPA Claim */}
-                    <div className="space-y-1.5">
-                      <Label htmlFor="cgpaClaim" className="flex items-center gap-1.5">
-                        <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+                    {/* CGPA Selective Disclosure Claim */}
+                    <div className="space-y-2">
+                      <Label htmlFor="cgpaClaim" className="text-xs font-bold uppercase tracking-wider text-[#592B9B] flex items-center gap-1.5">
+                        <Sparkles className="h-3.5 w-3.5 text-[#F16221]" />
                         Selective Disclosure Claim (CGPA / Honors)
                       </Label>
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <Input
                           id="cgpaClaim"
                           placeholder="e.g. CGPA >= 8.0"
@@ -664,13 +664,13 @@ export default function IssuerPage() {
                           required
                         />
                         <select
-                          className="h-10 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                          className="h-11 rounded-xl border border-[#ECE8F2] bg-white px-3.5 py-2 text-xs font-medium text-[#1A1523] shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#592B9B]/20"
                           onChange={(e) => setCgpaClaim(e.target.value)}
                           disabled={isMinting}
                           defaultValue=""
                         >
                           <option value="" disabled>
-                            Presets
+                            Select Merit Preset
                           </option>
                           <option value="CGPA >= 9.0">CGPA &gt;= 9.0 (Gold Medal)</option>
                           <option value="CGPA >= 8.5">CGPA &gt;= 8.5 (Distinction)</option>
@@ -679,54 +679,59 @@ export default function IssuerPage() {
                           <option value="CGPA >= 7.0">CGPA &gt;= 7.0</option>
                         </select>
                       </div>
-                      <p className="text-[11px] text-slate-500">
-                        Enables zero-knowledge proof verification of academic merit without revealing exact GPA.
+                      <p className="text-[11px] text-[#55505F]/80">
+                        Allows students to prove academic honors to employers without revealing transcripts or unhashed GPA.
                       </p>
                     </div>
 
                     {/* Issuance Execution Channel Selection */}
-                    <div className="space-y-2 pt-2">
-                      <Label className="text-xs font-semibold text-slate-300 flex items-center justify-between">
-                        <span>Issuance Execution Channel</span>
-                        <Badge variant="outline" className="text-[10px] bg-indigo-950/40 border-indigo-500/30 text-indigo-300">
+                    <div className="space-y-2.5 pt-2">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-xs font-bold uppercase tracking-wider text-[#592B9B]">
+                          Issuance Execution Channel
+                        </Label>
+                        <Badge variant="outline" className="text-[10px] bg-white border-[#ECE8F2] text-[#592B9B]">
                           Polygon Amoy
                         </Badge>
-                      </Label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <button
                           type="button"
                           onClick={() => setMintMethod("relayer")}
-                          className={`p-3 rounded-lg border text-left transition-all flex flex-col justify-between ${
+                          className={`p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between ${
                             mintMethod === "relayer"
-                              ? "border-indigo-500 bg-indigo-950/40 text-white shadow-sm ring-1 ring-indigo-500/50"
-                              : "border-slate-800 bg-slate-900/50 text-slate-400 hover:border-slate-700"
+                              ? "border-[#592B9B] bg-[#F7F5FB] shadow-sm ring-2 ring-[#592B9B]/20"
+                              : "border-[#ECE8F2] bg-white hover:border-[#592B9B]/40"
                           }`}
                         >
-                          <div className="flex items-center gap-2 mb-1">
-                            <Building2 className="h-4 w-4 text-indigo-400 shrink-0" />
-                            <span className="text-xs font-bold text-slate-200">University Relayer</span>
-                            <Badge className="ml-auto text-[9px] bg-emerald-500/20 text-emerald-400 border-0 px-1.5 py-0">Gasless</Badge>
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <Building2 className="h-4 w-4 text-[#592B9B] shrink-0" />
+                            <span className="text-xs font-bold text-[#1A1523]">University Relayer</span>
+                            <span className="ml-auto text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                              Gasless
+                            </span>
                           </div>
-                          <p className="text-[11px] text-slate-400 leading-tight">
-                            Direct on-chain issuance via official registrar backend. 1-click testnet minting.
+                          <p className="text-xs text-[#55505F] leading-tight">
+                            Instant on-chain minting via official registrar backend. 1-click testnet demo.
                           </p>
                         </button>
 
                         <button
                           type="button"
                           onClick={() => setMintMethod("wallet")}
-                          className={`p-3 rounded-lg border text-left transition-all flex flex-col justify-between ${
+                          className={`p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between ${
                             mintMethod === "wallet"
-                              ? "border-indigo-500 bg-indigo-950/40 text-white shadow-sm ring-1 ring-indigo-500/50"
-                              : "border-slate-800 bg-slate-900/50 text-slate-400 hover:border-slate-700"
+                              ? "border-[#592B9B] bg-[#F7F5FB] shadow-sm ring-2 ring-[#592B9B]/20"
+                              : "border-[#ECE8F2] bg-white hover:border-[#592B9B]/40"
                           }`}
                         >
-                          <div className="flex items-center gap-2 mb-1">
-                            <Wallet className="h-4 w-4 text-indigo-400 shrink-0" />
-                            <span className="text-xs font-bold text-slate-200">Personal MetaMask</span>
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <Wallet className="h-4 w-4 text-[#592B9B] shrink-0" />
+                            <span className="text-xs font-bold text-[#1A1523]">Personal MetaMask</span>
                           </div>
-                          <p className="text-[11px] text-slate-400 leading-tight">
-                            Sign transaction directly using your connected browser wallet.
+                          <p className="text-xs text-[#55505F] leading-tight">
+                            Sign transaction directly using your connected browser registrar wallet.
                           </p>
                         </button>
                       </div>
@@ -734,24 +739,24 @@ export default function IssuerPage() {
 
                     {/* Mint Progress Status */}
                     {isMinting && (
-                      <div className="p-3 rounded-lg border border-indigo-500/30 bg-indigo-950/30 flex items-center gap-3">
-                        <Loader2 className="h-4 w-4 animate-spin text-indigo-400 shrink-0" />
-                        <span className="text-xs text-indigo-200">{mintProgressStep}</span>
+                      <div className="p-4 rounded-2xl border border-[#592B9B]/20 bg-[#F7F5FB] flex items-center gap-3">
+                        <Loader2 className="h-5 w-5 animate-spin text-[#592B9B] shrink-0" />
+                        <span className="text-xs sm:text-sm font-medium text-[#1A1523]">{mintProgressStep}</span>
                       </div>
                     )}
                   </CardContent>
 
-                  <CardFooter className="pt-2">
+                  <CardFooter className="pt-2 pb-8">
                     {mintMethod === "relayer" ? (
                       <Button
                         type="submit"
                         disabled={isMinting}
-                        className="w-full gap-2 text-base font-semibold py-6 bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25 cursor-pointer"
+                        className="w-full gap-2 text-base font-bold py-6 bg-[#F16221] hover:bg-[#d95216] text-white rounded-full shadow-lg shadow-[#F16221]/25 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                       >
                         {isMinting ? (
                           <>
                             <Loader2 className="h-5 w-5 animate-spin" />
-                            Minting via University Registrar...
+                            Minting via University Registrar Relayer...
                           </>
                         ) : (
                           <>
@@ -764,7 +769,7 @@ export default function IssuerPage() {
                       <Button
                         type="button"
                         onClick={openConnectModal}
-                        className="w-full gap-2 text-base font-semibold py-6 bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 cursor-pointer"
+                        className="w-full gap-2 text-base font-bold py-6 bg-[#592B9B] hover:bg-[#47227d] text-white rounded-full shadow-lg shadow-[#592B9B]/25 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                       >
                         <Wallet className="h-5 w-5" />
                         Connect Wallet to Sign Transaction
@@ -773,7 +778,7 @@ export default function IssuerPage() {
                       <Button
                         type="button"
                         onClick={() => switchChain?.({ chainId: polygonAmoy.id })}
-                        className="w-full gap-2 text-base font-semibold py-6 bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-500/25 cursor-pointer"
+                        className="w-full gap-2 text-base font-bold py-6 bg-amber-600 hover:bg-amber-500 text-white rounded-full shadow-lg shadow-amber-600/25 cursor-pointer"
                       >
                         <Radio className="h-5 w-5 animate-pulse" />
                         Switch Network to Polygon Amoy (Chain 80002)
@@ -782,29 +787,29 @@ export default function IssuerPage() {
                       <Button
                         type="button"
                         disabled
-                        className="w-full gap-2 text-base font-semibold py-6 opacity-60"
+                        className="w-full gap-2 text-base font-semibold py-6 opacity-60 rounded-full"
                       >
-                        <Loader2 className="h-5 w-5 animate-spin text-indigo-400" />
+                        <Loader2 className="h-5 w-5 animate-spin text-[#592B9B]" />
                         Verifying ISSUER_ROLE Authorization...
                       </Button>
                     ) : !hasIssuerRole ? (
                       <div className="w-full space-y-3">
-                        <div className="p-3 rounded-lg border border-amber-500/30 bg-amber-950/20 text-xs text-amber-200">
-                          <div className="flex items-center gap-2 font-semibold text-amber-300 mb-1">
-                            <ShieldAlert className="h-4 w-4 shrink-0" />
+                        <div className="p-4 rounded-2xl border border-amber-200 bg-amber-50/80 text-xs text-amber-950">
+                          <div className="flex items-center gap-2 font-bold text-amber-900 mb-1">
+                            <ShieldAlert className="h-4 w-4 shrink-0 text-amber-600" />
                             Wallet Not Yet Registered as University Issuer
                           </div>
-                          <p className="text-slate-400 text-[11px]">
-                            Connected: <span className="font-mono text-slate-300">{address?.slice(0, 8)}...{address?.slice(-6)}</span>.
-                            You can self-authorize below for the demo, or switch to the University Relayer.
+                          <p className="text-amber-800/90 text-xs">
+                            Connected: <span className="font-mono">{address?.slice(0, 8)}...{address?.slice(-6)}</span>.
+                            You can self-authorize below for the demo, or switch back to the University Relayer.
                           </p>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <Button
                             type="button"
                             onClick={handleSelfAuthorize}
                             disabled={isAuthorizingRole}
-                            className="w-full gap-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-5 cursor-pointer"
+                            className="w-full gap-2 bg-[#592B9B] hover:bg-[#47227d] text-white text-xs font-bold py-5 rounded-full cursor-pointer shadow-md"
                           >
                             {isAuthorizingRole ? (
                               <>
@@ -813,7 +818,7 @@ export default function IssuerPage() {
                               </>
                             ) : (
                               <>
-                                <Zap className="h-4 w-4" />
+                                <Zap className="h-4 w-4 text-[#F16221]" />
                                 ⚡ Authorize My Wallet
                               </>
                             )}
@@ -822,9 +827,9 @@ export default function IssuerPage() {
                             type="button"
                             onClick={() => setMintMethod("relayer")}
                             variant="outline"
-                            className="w-full gap-2 border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-semibold py-5 cursor-pointer"
+                            className="w-full gap-2 border-[#ECE8F2] hover:bg-[#F7F5FB] text-[#1A1523] text-xs font-bold py-5 rounded-full cursor-pointer"
                           >
-                            <Building2 className="h-4 w-4 text-indigo-400" />
+                            <Building2 className="h-4 w-4 text-[#592B9B]" />
                             Use University Relayer
                           </Button>
                         </div>
@@ -833,7 +838,7 @@ export default function IssuerPage() {
                       <Button
                         type="submit"
                         disabled={isMinting}
-                        className="w-full gap-2 text-base font-semibold py-6 bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25 cursor-pointer"
+                        className="w-full gap-2 text-base font-bold py-6 bg-[#F16221] hover:bg-[#d95216] text-white rounded-full shadow-lg shadow-[#F16221]/25 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                       >
                         {isMinting ? (
                           <>
@@ -857,47 +862,52 @@ export default function IssuerPage() {
             <div className="lg:col-span-5 space-y-6">
               {/* Minted Success Card */}
               {mintedResult && (
-                <Card className="border-emerald-600/40 bg-slate-900/90 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-                  <CardHeader className="border-b border-slate-800 pb-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                        <CardTitle className="text-base text-emerald-200">
-                          Credential #{mintedResult.tokenId} Minted
-                        </CardTitle>
-                      </div>
-                      <Badge variant="success">EIP-5192 Soulbound</Badge>
+                <Card className="rounded-[28px] border-2 border-emerald-500/40 bg-white shadow-xl animate-in fade-in zoom-in-95 duration-200 overflow-hidden">
+                  <div className="flex items-center justify-between px-6 py-4 border-b border-emerald-100 bg-emerald-50/60">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                      <span className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-sm sm:text-base text-emerald-950">
+                        Credential #{mintedResult.tokenId} Minted
+                      </span>
                     </div>
-                  </CardHeader>
-                  <CardContent className="space-y-3 pt-4 text-xs">
+                    <Badge variant="success">EIP-5192 Soulbound</Badge>
+                  </div>
+
+                  <CardContent className="space-y-4 pt-6 text-xs sm:text-sm">
                     <div>
-                      <span className="text-slate-400">On-Chain Token ID</span>
-                      <p className="text-lg font-bold text-white font-mono">
+                      <span className="text-[#55505F] text-xs uppercase tracking-wider font-semibold font-['Sometype_Mono',monospace]">
+                        On-Chain Token ID
+                      </span>
+                      <p className="text-2xl font-black text-[#1A1523] font-mono mt-0.5">
                         #{mintedResult.tokenId}
                       </p>
                     </div>
 
                     <div>
-                      <span className="text-slate-400">Committed Merkle Root</span>
-                      <p className="font-mono text-indigo-300 break-all p-2 rounded bg-slate-950 border border-slate-800">
+                      <span className="text-[#55505F] text-xs uppercase tracking-wider font-semibold font-['Sometype_Mono',monospace]">
+                        Committed Merkle Root
+                      </span>
+                      <p className="font-mono text-xs text-[#592B9B] break-all p-3 rounded-xl bg-[#F7F5FB] border border-[#ECE8F2] mt-1 font-medium">
                         {mintedResult.rootHash}
                       </p>
                     </div>
 
                     <div>
-                      <span className="text-slate-400">Polygon Amoy Transaction</span>
-                      <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="font-mono text-slate-300 truncate max-w-[220px]">
+                      <span className="text-[#55505F] text-xs uppercase tracking-wider font-semibold font-['Sometype_Mono',monospace]">
+                        Polygon Amoy Transaction
+                      </span>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="font-mono text-xs text-[#1A1523] truncate max-w-[220px]">
                           {mintedResult.txHash}
                         </span>
                         <a
                           href={`https://amoy.polygonscan.com/tx/${mintedResult.txHash}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-indigo-400 hover:text-white"
+                          className="text-[#592B9B] hover:text-[#F16221] transition-colors"
                           title="View on Polygonscan"
                         >
-                          <ExternalLink className="h-3.5 w-3.5" />
+                          <ExternalLink className="h-4 w-4" />
                         </a>
                       </div>
                     </div>
@@ -909,51 +919,58 @@ export default function IssuerPage() {
                         onClick={() =>
                           triggerPayloadDownload(mintedResult.payload, mintedResult.tokenId)
                         }
-                        className="w-full gap-2 border border-slate-700"
+                        className="w-full gap-2 border-[#ECE8F2] bg-[#F7F5FB] hover:bg-white text-[#1A1523]"
                       >
-                        <Download className="h-4 w-4 text-indigo-400" />
-                        Re-Download Credential JSON
+                        <Download className="h-4 w-4 text-[#592B9B]" />
+                        Download Credential JSON (.json)
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
               )}
 
-              {/* Protocol Architecture Card */}
-              <Card className="border-slate-800 bg-slate-950/60">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-sm flex items-center gap-2 text-slate-300">
-                    <FileCode className="h-4 w-4 text-indigo-400" />
-                    How VeriVault Ensures Privacy
+              {/* Protocol Architecture Bento Card */}
+              <Card className="rounded-[28px] border border-[rgba(89,43,155,0.12)] bg-[#F7F5FB]/70 backdrop-blur-md">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#592B9B]" />
+                    <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-wider text-[#592B9B]">
+                      Zero-Plaintext Architecture
+                    </span>
+                  </div>
+                  <CardTitle className="text-lg font-extrabold text-[#1A1523] mt-1">
+                    How VeriVault Protects Student Privacy
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3 text-xs text-slate-400 leading-relaxed">
-                  <div className="flex items-start gap-2.5">
-                    <span className="h-5 w-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
+                <CardContent className="space-y-4 text-xs sm:text-sm text-[#55505F] leading-relaxed">
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-[#ECE8F2] shadow-sm">
+                    <span className="h-6 w-6 rounded-full bg-[#592B9B]/10 text-[#592B9B] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                       1
                     </span>
-                    <p>
-                      <strong>Client-Side Salting:</strong> Every field is paired with 32 random bytes
-                      to prevent dictionary and rainbow table attacks.
-                    </p>
+                    <div>
+                      <strong className="text-[#1A1523] block mb-0.5">Client-Side Salting:</strong>
+                      Every claim is paired with 32 cryptographically secure random bytes before hashing, preventing rainbow table attacks.
+                    </div>
                   </div>
-                  <div className="flex items-start gap-2.5">
-                    <span className="h-5 w-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
+
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-[#ECE8F2] shadow-sm">
+                    <span className="h-6 w-6 rounded-full bg-[#592B9B]/10 text-[#592B9B] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                       2
                     </span>
-                    <p>
-                      <strong>Sorted Merkle Trees:</strong> Leaves are hashed as Keccak-256 digests.
-                      The root is minted as a single 32-byte commitment.
-                    </p>
+                    <div>
+                      <strong className="text-[#1A1523] block mb-0.5">Sorted Keccak-256 Merkle Tree:</strong>
+                      Leaf digests are organized into an immutable tree. Only the single 32-byte Merkle root is recorded on Polygon Amoy.
+                    </div>
                   </div>
-                  <div className="flex items-start gap-2.5">
-                    <span className="h-5 w-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
+
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-[#ECE8F2] shadow-sm">
+                    <span className="h-6 w-6 rounded-full bg-[#592B9B]/10 text-[#592B9B] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                       3
                     </span>
-                    <p>
-                      <strong>Zero Plaintext On-Chain:</strong> Student names, grades, and identifiers
-                      never touch Polygon storage, ensuring full GDPR and FERPA compliance.
-                    </p>
+                    <div>
+                      <strong className="text-[#1A1523] block mb-0.5">Zero Plaintext On-Chain:</strong>
+                      Student names, roll numbers, and grades never touch blockchain storage, complying fully with GDPR, FERPA, and DPDP mandates.
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -964,27 +981,37 @@ export default function IssuerPage() {
         {/* ================================================================= */}
         {/* TAB 2: REVOCATION REGISTRY                                        */}
         {/* ================================================================= */}
-        <TabsContent value="revoke" className="space-y-6 pt-4">
+        <TabsContent value="revoke" className="space-y-6 pt-2 focus-visible:outline-none">
           <div className="max-w-2xl mx-auto space-y-6">
-            <Card className="border-red-950/40 bg-slate-900/60 shadow-xl">
+            <Card className="rounded-[28px] border border-red-200/80 bg-white shadow-xl overflow-hidden">
+              <div className="flex items-center justify-between px-6 sm:px-8 py-4 border-b border-red-100 bg-red-50/50">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                  <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                  <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                  <span className="ml-2 font-['Sometype_Mono',monospace] text-[11px] font-bold uppercase tracking-wider text-red-700">
+                    On-Chain Revocation Audit Log
+                  </span>
+                </div>
+                <Badge variant="destructive">Immutable Audit</Badge>
+              </div>
+
               <form onSubmit={handleRevokeCredential}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg flex items-center gap-2 text-red-200">
-                      <Ban className="h-5 w-5 text-red-400" />
-                      Revoke Issued Credential
-                    </CardTitle>
-                    <Badge variant="destructive">Immutable Audit</Badge>
-                  </div>
-                  <CardDescription>
-                    Permanently flag an issued credential as revoked on Polygon Amoy with an immutable
-                    on-chain explanatory reason.
+                <CardHeader className="space-y-1.5">
+                  <CardTitle className="text-xl sm:text-2xl font-extrabold text-[#1A1523] flex items-center gap-2">
+                    <Ban className="h-6 w-6 text-red-600" />
+                    Revoke Issued Credential
+                  </CardTitle>
+                  <CardDescription className="text-sm text-[#55505F]">
+                    Permanently flag an issued credential as revoked on Polygon Amoy with an immutable on-chain explanatory reason.
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="space-y-4">
-                  <div className="space-y-1.5">
-                    <Label htmlFor="revokeTokenId">Token ID to Revoke</Label>
+                <CardContent className="space-y-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="revokeTokenId" className="text-xs font-bold uppercase tracking-wider text-[#592B9B]">
+                      Token ID to Revoke
+                    </Label>
                     <Input
                       id="revokeTokenId"
                       type="number"
@@ -996,13 +1023,15 @@ export default function IssuerPage() {
                       className="font-mono text-sm"
                       required
                     />
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-[11px] text-[#55505F]">
                       The on-chain ERC-5192 token identifier of the target credential.
                     </p>
                   </div>
 
-                  <div className="space-y-1.5">
-                    <Label htmlFor="revokeReason">Official Revocation Reason</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="revokeReason" className="text-xs font-bold uppercase tracking-wider text-[#592B9B]">
+                      Official Revocation Reason
+                    </Label>
                     <Input
                       id="revokeReason"
                       placeholder="e.g. Degree cancelled due to academic malpractice confirmed on 12-Oct-2024"
@@ -1011,27 +1040,28 @@ export default function IssuerPage() {
                       disabled={isRevoking}
                       required
                     />
-                    <p className="text-[11px] text-slate-500">
-                      This explanation will be permanently visible to employers and verifiers worldwide.
+                    <p className="text-[11px] text-[#55505F]">
+                      This audit explanation will be permanently visible to employers and verifiers worldwide.
                     </p>
                   </div>
 
-                  <Alert variant="warning" className="border-amber-900/30 bg-amber-950/20">
-                    <Info className="h-4 w-4 text-amber-400" />
-                    <AlertTitle className="text-amber-300 text-xs">Irreversible Action</AlertTitle>
-                    <AlertDescription className="text-slate-400 text-[11px]">
-                      Once a credential is revoked on Polygon Amoy, its status cannot be undone. Public
-                      verification queries will report the token as invalidated.
+                  <Alert variant="warning" className="border-amber-200 bg-amber-50/80">
+                    <Info className="h-4 w-4 text-amber-600" />
+                    <AlertTitle className="text-amber-900 font-bold text-xs uppercase tracking-wider">
+                      Irreversible On-Chain Action
+                    </AlertTitle>
+                    <AlertDescription className="text-amber-800 text-xs leading-relaxed mt-1">
+                      Once a credential is revoked on Polygon Amoy, its status cannot be reversed. Public verification queries will immediately report the token as invalidated.
                     </AlertDescription>
                   </Alert>
                 </CardContent>
 
-                <CardFooter className="pt-2">
+                <CardFooter className="pt-2 pb-8">
                   {!isConnected ? (
                     <Button
                       type="button"
                       onClick={openConnectModal}
-                      className="w-full gap-2 text-base font-semibold py-6 bg-red-600 hover:bg-red-500 text-white shadow-lg cursor-pointer"
+                      className="w-full gap-2 text-base font-bold py-6 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg shadow-red-600/25 cursor-pointer"
                     >
                       <Wallet className="h-5 w-5" />
                       Connect Wallet to Revoke Credential
@@ -1040,7 +1070,7 @@ export default function IssuerPage() {
                     <Button
                       type="button"
                       onClick={() => switchChain?.({ chainId: polygonAmoy.id })}
-                      className="w-full gap-2 text-base font-semibold py-6 bg-amber-600 hover:bg-amber-500 text-white shadow-lg cursor-pointer"
+                      className="w-full gap-2 text-base font-bold py-6 bg-amber-600 hover:bg-amber-500 text-white rounded-full shadow-lg cursor-pointer"
                     >
                       <Radio className="h-5 w-5 animate-pulse" />
                       Switch Network to Polygon Amoy (Chain 80002)
@@ -1049,20 +1079,20 @@ export default function IssuerPage() {
                     <Button
                       type="button"
                       disabled
-                      className="w-full gap-2 text-base font-semibold py-6 opacity-60"
+                      className="w-full gap-2 text-base font-semibold py-6 opacity-60 rounded-full"
                     >
-                      <Loader2 className="h-5 w-5 animate-spin text-red-400" />
+                      <Loader2 className="h-5 w-5 animate-spin text-red-500" />
                       Verifying ISSUER_ROLE Authorization...
                     </Button>
                   ) : !hasIssuerRole ? (
                     <div className="w-full space-y-3">
-                      <div className="p-3 rounded-lg border border-red-500/30 bg-red-950/20 text-xs text-red-200">
-                        <div className="flex items-center gap-2 font-semibold text-red-300 mb-1">
-                          <ShieldAlert className="h-4 w-4 shrink-0" />
+                      <div className="p-4 rounded-2xl border border-red-200 bg-red-50/80 text-xs text-red-950">
+                        <div className="flex items-center gap-2 font-bold text-red-900 mb-1">
+                          <ShieldAlert className="h-4 w-4 shrink-0 text-red-600" />
                           Wallet Lacks Registrar Role for Revocation
                         </div>
-                        <p className="text-slate-400 text-[11px]">
-                          Connected: <span className="font-mono text-slate-300">{address?.slice(0, 8)}...{address?.slice(-6)}</span>.
+                        <p className="text-red-800 text-xs">
+                          Connected: <span className="font-mono">{address?.slice(0, 8)}...{address?.slice(-6)}</span>.
                           You can self-authorize below for testing on Polygon Amoy.
                         </p>
                       </div>
@@ -1070,7 +1100,7 @@ export default function IssuerPage() {
                         type="button"
                         onClick={handleSelfAuthorize}
                         disabled={isAuthorizingRole}
-                        className="w-full gap-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-5 cursor-pointer"
+                        className="w-full gap-2 bg-[#592B9B] hover:bg-[#47227d] text-white text-xs font-bold py-5 rounded-full cursor-pointer shadow-md"
                       >
                         {isAuthorizingRole ? (
                           <>
@@ -1079,7 +1109,7 @@ export default function IssuerPage() {
                           </>
                         ) : (
                           <>
-                            <Zap className="h-4 w-4" />
+                            <Zap className="h-4 w-4 text-[#F16221]" />
                             ⚡ 1-Click Authorize My Wallet as Registrar
                           </>
                         )}
@@ -1090,7 +1120,7 @@ export default function IssuerPage() {
                       type="submit"
                       variant="destructive"
                       disabled={isRevoking}
-                      className="w-full gap-2 text-base font-semibold py-6 cursor-pointer"
+                      className="w-full gap-2 text-base font-bold py-6 rounded-full cursor-pointer"
                     >
                       {isRevoking ? (
                         <>
@@ -1111,31 +1141,35 @@ export default function IssuerPage() {
 
             {/* Revocation Result Card */}
             {revokedResult && (
-              <Card className="border-red-900/50 bg-red-950/20 shadow-xl">
-                <CardHeader className="pb-3">
+              <Card className="rounded-[28px] border-2 border-red-300 bg-red-50/50 shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                <CardHeader className="pb-3 border-b border-red-100">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-red-400" />
-                    <CardTitle className="text-base text-red-200">
+                    <CheckCircle2 className="h-5 w-5 text-red-600" />
+                    <CardTitle className="text-base sm:text-lg text-red-900 font-bold">
                       Credential #{revokedResult.tokenId} Revoked
                     </CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-2 text-xs">
+                <CardContent className="space-y-3 pt-4 text-xs sm:text-sm">
                   <div>
-                    <span className="text-slate-400">Logged Reason:</span>
-                    <p className="font-medium text-white mt-0.5">{revokedResult.reason}</p>
+                    <span className="text-red-800 text-xs uppercase tracking-wider font-semibold font-['Sometype_Mono',monospace]">
+                      Logged Reason:
+                    </span>
+                    <p className="font-semibold text-red-950 mt-0.5">{revokedResult.reason}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400">Transaction Confirmation:</span>
-                    <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="font-mono text-slate-300 truncate max-w-[280px]">
+                    <span className="text-red-800 text-xs uppercase tracking-wider font-semibold font-['Sometype_Mono',monospace]">
+                      Transaction Confirmation:
+                    </span>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="font-mono text-xs text-red-950 truncate max-w-[280px]">
                         {revokedResult.txHash}
                       </span>
                       <a
                         href={`https://amoy.polygonscan.com/tx/${revokedResult.txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-red-400 hover:text-red-200 inline-flex items-center gap-0.5"
+                        className="text-red-700 hover:text-red-900 inline-flex items-center gap-1 font-semibold"
                       >
                         Polygonscan
                         <ExternalLink className="h-3 w-3" />

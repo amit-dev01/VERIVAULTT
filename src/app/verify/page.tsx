@@ -25,6 +25,7 @@ import {
   Landmark,
   BadgeCheck,
   Award,
+  ArrowRight,
 } from "lucide-react";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -333,38 +334,44 @@ function VerifierContent() {
   }, []);
 
   return (
-    <div className="container max-w-5xl mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-5">
-        <div className="flex items-center gap-3">
-          <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-600/20 shrink-0">
-            <CheckCircle2 className="h-6 w-6 sm:h-7 sm:w-7" />
+    <div className="max-w-[1248px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-10 sm:space-y-12">
+      {/* -------------------------------------------------------------------- */}
+      {/* Editorial Page Header with Momentum Branding                        */}
+      {/* -------------------------------------------------------------------- */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#ECE8F2]">
+        <div className="space-y-3 max-w-2xl">
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ef4444] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ef4444]" />
+            </span>
+            <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-[0.12em] text-[#592B9B]">
+              Zero-Trust Audit Verification Engine
+            </span>
           </div>
-          <div>
-            <h1 className="text-xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-              Public Instant Verifier
-              <Badge variant="success" className="text-[10px] sm:text-xs">
-                Sub-2s Engine
-              </Badge>
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-400">
-              Zero-Trust Proof Engine on Polygon Amoy — No Web3 Wallet Required
-            </p>
-          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-[-0.04em] text-[#1A1523] font-['Plus_Jakarta_Sans',sans-serif] leading-[1.05]">
+            Public Instant Verifier
+          </h1>
+          <p className="text-base text-[#55505F] font-['Inter',sans-serif] leading-relaxed">
+            Sub-2s zero-knowledge proof verification on Polygon Amoy — no Web3 wallet, browser extensions, or private account required.
+          </p>
         </div>
 
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          <Badge variant="outline" className="text-xs font-mono">
-            Polygon Amoy (80002)
-          </Badge>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#ECE8F2] shadow-sm text-xs font-['Sometype_Mono',monospace]">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-semibold text-[#1A1523]">Polygon Amoy (80002)</span>
+          </div>
+
           <a
             href={`https://amoy.polygonscan.com/address/${VERIVAULT_CONTRACT_ADDRESS}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-mono"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F7F5FB] hover:bg-white border border-[#ECE8F2] hover:border-[#592B9B]/30 text-xs font-semibold text-[#592B9B] transition-all group shadow-sm"
           >
-            Contract
-            <ExternalLink className="h-3 w-3" />
+            <span>Contract</span>
+            <ExternalLink className="h-3 w-3 text-[#592B9B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
       </div>
@@ -372,72 +379,78 @@ function VerifierContent() {
       {/* -------------------------------------------------------------------- */}
       {/* Input Handling: Camera Scanner / URL / Paste                         */}
       {/* -------------------------------------------------------------------- */}
-      <Card className="border-slate-800 bg-slate-900/70 shadow-xl">
-        <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-                <Search className="h-5 w-5 text-indigo-400" />
-                Scan or Paste Credential Proof
-              </CardTitle>
-              <CardDescription className="text-xs sm:text-sm">
-                Point your phone camera at the student&apos;s dynamic QR code or paste a verification string.
-              </CardDescription>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button
-                variant={isCameraActive ? "destructive" : "secondary"}
-                size="sm"
-                onClick={isCameraActive ? stopCameraScanner : startCameraScanner}
-                className="gap-2 shrink-0 border border-slate-700 w-full sm:w-auto"
-              >
-                {isCameraActive ? (
-                  <>
-                    <CameraOff className="h-4 w-4" />
-                    Close Camera
-                  </>
-                ) : (
-                  <>
-                    <Camera className="h-4 w-4 text-emerald-400" />
-                    Scan with Camera
-                  </>
-                )}
-              </Button>
-            </div>
+      <Card className="rounded-[28px] border border-[rgba(89,43,155,0.12)] bg-white shadow-xl overflow-hidden">
+        {/* Traffic lights header */}
+        <div className="flex items-center justify-between px-6 sm:px-8 py-4 border-b border-[#ECE8F2] bg-[#F7F5FB]/60">
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+            <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+            <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
+            <span className="ml-2 font-['Sometype_Mono',monospace] text-[11px] font-bold uppercase tracking-wider text-[#592B9B]">
+              Proof Ingestion Console
+            </span>
           </div>
+
+          <Button
+            variant={isCameraActive ? "destructive" : "outline"}
+            size="sm"
+            onClick={isCameraActive ? stopCameraScanner : startCameraScanner}
+            className="gap-2 border-[#ECE8F2] text-xs font-bold rounded-full h-8"
+          >
+            {isCameraActive ? (
+              <>
+                <CameraOff className="h-3.5 w-3.5" />
+                Close Camera
+              </>
+            ) : (
+              <>
+                <Camera className="h-3.5 w-3.5 text-[#592B9B]" />
+                Scan with Camera
+              </>
+            )}
+          </Button>
+        </div>
+
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-xl sm:text-2xl font-extrabold text-[#1A1523] flex items-center gap-2.5">
+            <Search className="h-5 w-5 text-[#592B9B]" />
+            Scan or Paste Credential Proof
+          </CardTitle>
+          <CardDescription className="text-sm text-[#55505F]">
+            Scan the graduate&apos;s dynamic QR code or paste their compressed selective disclosure proof string.
+          </CardDescription>
         </CardHeader>
 
-        <CardContent className="p-4 sm:p-6 pt-0 space-y-4">
+        <CardContent className="space-y-5">
           {/* Camera Viewport */}
           {isCameraActive && (
-            <div className="space-y-3 p-3 sm:p-4 rounded-xl border border-indigo-500/40 bg-slate-950 flex flex-col items-center">
+            <div className="p-4 rounded-2xl border-2 border-[#592B9B]/30 bg-[#F7F5FB] flex flex-col items-center space-y-3">
               <div
                 id="qr-reader"
-                className="w-full max-w-[280px] sm:max-w-sm rounded-lg overflow-hidden border border-slate-800 bg-black aspect-square"
+                className="w-full max-w-[280px] sm:max-w-sm rounded-xl overflow-hidden border border-[#ECE8F2] bg-black aspect-square shadow-md"
               />
-              <p className="text-xs text-slate-400 text-center flex items-center gap-1.5">
-                <Loader2 className="h-3.5 w-3.5 animate-spin text-indigo-400" />
-                Hold phone camera steady over the VeriVault QR code
+              <p className="text-xs font-medium text-[#592B9B] flex items-center gap-1.5">
+                <Loader2 className="h-4 w-4 animate-spin text-[#592B9B]" />
+                Point camera steadily at student QR code
               </p>
             </div>
           )}
 
           {/* Manual Input / Paste Field */}
-          <div className="flex flex-col sm:flex-row gap-2.5">
+          <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <Input
                 placeholder="Paste verification link or compressed proof payload (e.g. N4IgLg9g...)"
                 value={dataInput}
                 onChange={(e) => setDataInput(e.target.value)}
                 disabled={isVerifying}
-                className="font-mono text-xs pr-12 h-11"
+                className="font-mono text-xs pr-14 h-12"
               />
               {dataInput && (
                 <button
                   type="button"
                   onClick={() => setDataInput("")}
-                  className="absolute right-3 top-3 text-xs text-slate-500 hover:text-slate-300 font-medium"
+                  className="absolute right-4 top-3.5 text-xs text-[#55505F] hover:text-[#1A1523] font-bold"
                 >
                   Clear
                 </button>
@@ -447,7 +460,7 @@ function VerifierContent() {
             <Button
               onClick={() => runVerification(dataInput)}
               disabled={isVerifying || !dataInput.trim()}
-              className="gap-2 shrink-0 font-semibold h-11 px-6 w-full sm:w-auto"
+              className="gap-2 shrink-0 font-bold h-12 px-8 bg-[#F16221] hover:bg-[#d95216] text-white rounded-full shadow-md shadow-[#F16221]/20 hover:scale-[1.02] active:scale-[0.98]"
             >
               {isVerifying ? (
                 <>
@@ -465,29 +478,30 @@ function VerifierContent() {
 
           {/* Quick Demo Buttons for Hackathon Presenters */}
           <div className="flex flex-wrap items-center gap-2 pt-1">
-            <span className="text-[11px] text-slate-500 font-medium">Quick Demo Test:</span>
+            <span className="text-xs text-[#55505F] font-semibold font-['Sometype_Mono',monospace]">
+              1-Click Demo Tests:
+            </span>
             <button
               type="button"
               onClick={() => {
                 setDataInput(DEMO_VALID_PAYLOAD);
                 runVerification(DEMO_VALID_PAYLOAD);
               }}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-indigo-950/40 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-900/50 text-[11px] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F7F5FB] border border-[#ECE8F2] hover:border-[#592B9B]/40 text-[#592B9B] hover:bg-white text-xs font-semibold transition-all shadow-sm"
             >
-              <Sparkles className="h-3 w-3 text-indigo-400" />
+              <Sparkles className="h-3.5 w-3.5 text-[#F16221]" />
               Load Sample Valid Proof
             </button>
             <button
               type="button"
               onClick={() => {
-                // Modified tamper payload: fake degree attribute with invalid salt
                 const forgedPayload = DEMO_VALID_PAYLOAD.slice(0, -6) + "FAKE99";
                 setDataInput(forgedPayload);
                 runVerification(forgedPayload);
               }}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/50 text-[11px] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 border border-red-200 hover:border-red-300 text-red-700 hover:bg-red-100 text-xs font-semibold transition-all shadow-sm"
             >
-              <AlertTriangle className="h-3 w-3 text-red-400" />
+              <AlertTriangle className="h-3.5 w-3.5 text-red-600" />
               Test Forged / Tampered Proof
             </button>
           </div>
@@ -498,13 +512,13 @@ function VerifierContent() {
       {/* Verification In-Progress Indicator                                   */}
       {/* -------------------------------------------------------------------- */}
       {isVerifying && (
-        <Card className="border-indigo-900/50 bg-indigo-950/20 p-8 text-center animate-pulse">
+        <Card className="rounded-[28px] border border-[rgba(89,43,155,0.2)] bg-[#F7F5FB] p-8 text-center shadow-lg animate-pulse">
           <div className="max-w-sm mx-auto space-y-3">
-            <Loader2 className="h-8 w-8 animate-spin text-indigo-400 mx-auto" />
-            <h4 className="text-base font-bold text-white">
-              Executing In-Browser Verification
+            <Loader2 className="h-9 w-9 animate-spin text-[#592B9B] mx-auto" />
+            <h4 className="text-lg font-bold text-[#1A1523] font-['Plus_Jakarta_Sans',sans-serif]">
+              Executing Cryptographic Verification
             </h4>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#55505F]">
               Querying Polygon Amoy node state & validating Keccak-256 Merkle proofs...
             </p>
           </div>
@@ -512,120 +526,106 @@ function VerifierContent() {
       )}
 
       {/* -------------------------------------------------------------------- */}
-      {/* Immediate Visual States: GREEN, RED (REVOKED), RED (TAMPERED)        */}
-      {/* HIGH-CONTRAST FOR MOBILE SCREENS (iPhone Safari & Android Chrome)     */}
+      {/* Verification Outcomes                                                */}
       {/* -------------------------------------------------------------------- */}
       {verificationResult && (
-        <div className="space-y-6 animate-in fade-in zoom-in-95 duration-200">
+        <div className="space-y-8 animate-in fade-in zoom-in-95 duration-200">
           {/* ================================================================= */}
           {/* STATE 1: GREEN (VERIFIED & AUTHENTIC)                             */}
           {/* ================================================================= */}
           {verificationResult.status === VerificationStatus.AUTHENTIC && (
-            <Card className="border-2 border-emerald-500 bg-gradient-to-b from-emerald-950/80 via-slate-900 to-slate-950 shadow-2xl ring-4 ring-emerald-500/20 overflow-hidden">
-              {/* High-contrast Mobile-Optimized Status Header */}
-              <div className="border-b border-emerald-500/40 bg-emerald-900/50 px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/30 shrink-0">
-                    <ShieldCheck className="h-7 w-7 sm:h-9 sm:w-9" />
+            <Card className="rounded-[32px] border-2 border-emerald-500/40 bg-white shadow-2xl overflow-hidden ring-4 ring-emerald-500/10">
+              {/* Status Header Banner */}
+              <div className="border-b border-emerald-100 bg-emerald-50/80 px-6 sm:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="p-2.5 rounded-2xl bg-emerald-600 text-white shadow-md shadow-emerald-600/30 shrink-0">
+                    <ShieldCheck className="h-8 w-8" />
                   </div>
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-emerald-200 tracking-tight flex items-center gap-2">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-emerald-950 font-['Plus_Jakarta_Sans',sans-serif] tracking-tight flex items-center gap-2.5">
                       VERIFIED & AUTHENTIC
-                      <Badge variant="success" className="text-xs px-2 py-0.5 bg-emerald-500 text-slate-950 font-bold">
+                      <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900">
                         {verificationResult.executionTimeMs} ms
-                      </Badge>
+                      </span>
                     </h3>
-                    <p className="text-xs sm:text-sm text-emerald-300 font-medium">
-                      Cryptographically valid against Polygon Amoy on-chain commitment
+                    <p className="text-xs sm:text-sm text-emerald-800 font-medium">
+                      Cryptographically confirmed against Polygon Amoy on-chain commitment
                     </p>
                   </div>
                 </div>
 
-                <Badge variant="outline" className="border-emerald-400 text-emerald-300 font-mono text-xs sm:text-sm px-2.5 py-1 self-start sm:self-auto bg-slate-950/60">
+                <Badge variant="outline" className="border-emerald-300 text-emerald-800 font-mono text-xs sm:text-sm px-3 py-1 bg-white font-bold">
                   Token #{verificationResult.tokenId}
                 </Badge>
               </div>
 
-              <CardContent className="p-4 sm:p-6 space-y-6">
-                {/* ============================================================= */}
-                {/* GovTech Singapore OpenCerts Institutional Identity Card       */}
-                {/* ============================================================= */}
+              <CardContent className="p-6 sm:p-8 space-y-8">
+                {/* GovTech OpenCerts Institutional Identity Card */}
                 {(() => {
                   const institution = getInstitutionalData(verificationResult.issuerAddress);
                   if (institution) {
                     return (
-                      <div className="rounded-2xl border-2 border-emerald-500/50 bg-gradient-to-r from-emerald-950/70 via-slate-900 to-indigo-950/60 p-5 shadow-2xl relative overflow-hidden ring-2 ring-emerald-500/20">
-                        {/* Glow accent */}
-                        <div className="absolute -top-12 -right-12 w-40 h-40 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-
-                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
-                          {/* Main Institutional Identity Info */}
+                      <div className="rounded-2xl border-2 border-emerald-500/30 bg-[#F7F5FB] p-6 shadow-sm relative overflow-hidden">
+                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
                           <div className="flex items-start gap-4">
-                            <div className="p-3 sm:p-3.5 rounded-2xl bg-emerald-500/20 border-2 border-emerald-500/40 text-emerald-400 shrink-0 shadow-lg shadow-emerald-900/30">
-                              <Landmark className="h-7 w-7" />
+                            <div className="p-3.5 rounded-2xl bg-white border border-[#ECE8F2] text-[#592B9B] shrink-0 shadow-sm">
+                              <Landmark className="h-8 w-8" />
                             </div>
 
                             <div className="space-y-1.5">
-                              {/* OpenCerts Standard Badge */}
                               <div className="flex flex-wrap items-center gap-2">
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold tracking-wide uppercase shadow-sm">
-                                  <BadgeCheck className="h-3.5 w-3.5 text-emerald-400" />
+                                <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold tracking-wide uppercase">
+                                  <BadgeCheck className="h-3.5 w-3.5 text-emerald-700" />
                                   GovTech OpenCerts Verified
                                 </span>
-                                <span className="text-[11px] text-slate-400 font-mono">
+                                <span className="text-xs text-[#55505F] font-mono">
                                   {institution.registryId}
                                 </span>
                               </div>
 
-                              {/* Verified Issuer Name */}
-                              <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                              <h3 className="text-xl sm:text-2xl font-extrabold text-[#1A1523] tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
                                 Verified Issuer: {institution.name}
                               </h3>
 
-                              {/* Domain & Accreditation Row */}
-                              <div className="flex flex-wrap items-center gap-y-1.5 gap-x-4 text-xs sm:text-sm text-slate-300 pt-0.5">
-                                {/* Official Institutional Domain */}
+                              <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs sm:text-sm text-[#55505F] pt-0.5">
                                 <a
                                   href={institution.portalUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 font-semibold text-emerald-300 hover:text-emerald-200 hover:underline transition-colors group"
+                                  className="inline-flex items-center gap-1.5 font-bold text-[#592B9B] hover:underline transition-colors"
                                   title="Visit Official Institutional Portal"
                                 >
-                                  <Lock className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                                  <span>Official Institutional Domain: {institution.domain}</span>
-                                  <ExternalLink className="h-3.5 w-3.5 text-emerald-400/80 group-hover:text-emerald-200 shrink-0" />
+                                  <Lock className="h-3.5 w-3.5 text-[#592B9B] shrink-0" />
+                                  <span>Official Domain: {institution.domain}</span>
+                                  <ExternalLink className="h-3.5 w-3.5 text-[#592B9B] shrink-0" />
                                 </a>
 
-                                <span className="text-slate-600 hidden sm:inline">•</span>
+                                <span className="text-[#ECE8F2] hidden sm:inline">•</span>
 
-                                {/* Regulatory Registry */}
-                                <span className="inline-flex items-center gap-1.5 text-slate-200 font-medium">
-                                  <Award className="h-4 w-4 text-amber-400 shrink-0" />
+                                <span className="inline-flex items-center gap-1.5 text-[#1A1523] font-medium">
+                                  <Award className="h-4 w-4 text-[#F16221] shrink-0" />
                                   <span>Regulatory Registry: {institution.accreditation}</span>
                                 </span>
                               </div>
                             </div>
                           </div>
 
-                          {/* On-Chain Coordinates on Polygon Amoy */}
-                          <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between border-t lg:border-t-0 border-slate-800 pt-3 lg:pt-0 shrink-0 gap-1.5">
-                            <span className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+                          <div className="flex flex-col items-start lg:items-end justify-between border-t lg:border-t-0 border-[#ECE8F2] pt-3 lg:pt-0 shrink-0 gap-1.5">
+                            <span className="text-[11px] font-bold text-[#55505F] uppercase tracking-wider font-['Sometype_Mono',monospace]">
                               On-Chain Coordinates
                             </span>
                             <a
                               href={`https://amoy.polygonscan.com/address/${VERIVAULT_CONTRACT_ADDRESS}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-950/60 hover:bg-indigo-900/60 border border-indigo-500/40 text-xs font-mono text-indigo-300 hover:text-indigo-200 transition-all shadow-md group"
-                              title="Inspect smart contract on Polygonscan"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-[#F7F5FB] border border-[#ECE8F2] hover:border-[#592B9B]/40 text-xs font-mono font-semibold text-[#592B9B] transition-all shadow-sm"
                             >
-                              <Fingerprint className="h-3.5 w-3.5 text-indigo-400" />
+                              <Fingerprint className="h-3.5 w-3.5 text-[#592B9B]" />
                               <span>Polygon Amoy Contract</span>
-                              <ExternalLink className="h-3.5 w-3.5 text-indigo-400 group-hover:translate-x-0.5 transition-transform" />
+                              <ExternalLink className="h-3.5 w-3.5" />
                             </a>
-                            <span className="text-[10px] text-slate-500 font-mono">
-                              Chain ID: 80002 • Cancun EVM
+                            <span className="text-[10px] text-[#55505F] font-mono">
+                              Chain ID: 80002 • EVM
                             </span>
                           </div>
                         </div>
@@ -633,75 +633,46 @@ function VerifierContent() {
                     );
                   }
 
-                  // Unknown / Unregistered Issuer State
                   return (
-                    <div className="rounded-2xl border-2 border-amber-500/60 bg-gradient-to-r from-amber-950/70 via-slate-900 to-slate-950 p-5 shadow-2xl ring-2 ring-amber-500/20">
+                    <div className="rounded-2xl border-2 border-amber-300 bg-amber-50/80 p-5 shadow-sm">
                       <div className="flex items-start gap-4">
-                        <div className="p-3 sm:p-3.5 rounded-2xl bg-amber-500/20 border-2 border-amber-500/40 text-amber-400 shrink-0">
+                        <div className="p-3 rounded-2xl bg-amber-100 text-amber-700 shrink-0">
                           <AlertTriangle className="h-7 w-7" />
                         </div>
-                        <div className="space-y-2 flex-1">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-bold uppercase tracking-wide">
-                              <AlertTriangle className="h-3 w-3" />
-                              Unregistered Issuer
-                            </span>
-                            <span className="text-[11px] text-amber-400/80 font-mono">
-                              OpenCerts Trust Warning
-                            </span>
-                          </div>
-
-                          <h3 className="text-base sm:text-lg font-bold text-amber-200 leading-snug">
-                            Unregistered Issuer: This credential was signed by an unverified wallet address ({verificationResult.issuerAddress.slice(0, 8)}...{verificationResult.issuerAddress.slice(-6)}). Proceed with caution.
+                        <div className="space-y-1.5">
+                          <span className="text-xs font-bold uppercase tracking-wider text-amber-900">
+                            Unregistered Issuer Warning
+                          </span>
+                          <h3 className="text-base font-bold text-amber-950">
+                            Signed by an unverified wallet ({verificationResult.issuerAddress.slice(0, 8)}...{verificationResult.issuerAddress.slice(-6)}).
                           </h3>
-
-                          <p className="text-xs text-slate-300 leading-relaxed">
-                            While the cryptographic Merkle tree integrity check passed against the on-chain root, this signing address is <strong>not registered</strong> in the National Institutional Accreditation Directory or GovTech OpenCerts registry.
+                          <p className="text-xs text-amber-900/90 leading-relaxed">
+                            While the cryptographic Merkle tree integrity matches the on-chain root, this signing address is not catalogued in the National Institutional Accreditation Directory.
                           </p>
-
-                          <div className="pt-1 flex flex-wrap items-center gap-3">
-                            <a
-                              href={`https://amoy.polygonscan.com/address/${verificationResult.issuerAddress}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-amber-200 underline font-mono"
-                            >
-                              Inspect Issuer Wallet on Polygonscan <ExternalLink className="h-3 w-3" />
-                            </a>
-                            <span className="text-slate-600">•</span>
-                            <a
-                              href={`https://amoy.polygonscan.com/address/${VERIVAULT_CONTRACT_ADDRESS}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs text-indigo-300 hover:text-indigo-200 underline font-mono"
-                            >
-                              Contract Coordinates on Amoy <ExternalLink className="h-3 w-3" />
-                            </a>
-                          </div>
                         </div>
                       </div>
                     </div>
                   );
                 })()}
 
-                {/* On-Chain Attestation Details */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                  <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1 font-medium">
-                      <UserCheck className="h-3.5 w-3.5 text-indigo-400" />
+                {/* 3-Stat Proof Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="p-4 rounded-2xl bg-[#F7F5FB] border border-[#ECE8F2] space-y-1">
+                    <span className="text-xs font-bold text-[#55505F] uppercase tracking-wider font-['Sometype_Mono',monospace] flex items-center gap-1.5">
+                      <UserCheck className="h-3.5 w-3.5 text-[#592B9B]" />
                       Authorized Issuer
                     </span>
-                    <p className="font-mono text-xs text-white break-all" title={verificationResult.issuerAddress}>
+                    <p className="font-mono text-xs text-[#1A1523] break-all font-medium pt-1">
                       {verificationResult.issuerAddress}
                     </p>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1 font-medium">
-                      <Clock className="h-3.5 w-3.5 text-indigo-400" />
+                  <div className="p-4 rounded-2xl bg-[#F7F5FB] border border-[#ECE8F2] space-y-1">
+                    <span className="text-xs font-bold text-[#55505F] uppercase tracking-wider font-['Sometype_Mono',monospace] flex items-center gap-1.5">
+                      <Clock className="h-3.5 w-3.5 text-[#592B9B]" />
                       Conferred / Issued Date
                     </span>
-                    <p className="text-xs sm:text-sm font-semibold text-white">
+                    <p className="text-sm font-bold text-[#1A1523] pt-1 font-['Plus_Jakarta_Sans',sans-serif]">
                       {new Date(verificationResult.issuedAt * 1000).toLocaleDateString(undefined, {
                         year: "numeric",
                         month: "long",
@@ -710,56 +681,56 @@ function VerifierContent() {
                     </p>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1 font-medium">
-                      <Fingerprint className="h-3.5 w-3.5 text-indigo-400" />
+                  <div className="p-4 rounded-2xl bg-[#F7F5FB] border border-[#ECE8F2] space-y-1">
+                    <span className="text-xs font-bold text-[#55505F] uppercase tracking-wider font-['Sometype_Mono',monospace] flex items-center gap-1.5">
+                      <Fingerprint className="h-3.5 w-3.5 text-[#592B9B]" />
                       Committed Merkle Root
                     </span>
-                    <p className="font-mono text-xs text-indigo-300 break-all" title={verificationResult.onChainRoot}>
+                    <p className="font-mono text-xs text-[#592B9B] break-all font-medium pt-1">
                       {verificationResult.onChainRoot}
                     </p>
                   </div>
                 </div>
 
                 {/* Disclosed Verified Attributes List */}
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                    <h4 className="text-base font-bold text-[#1A1523] font-['Plus_Jakarta_Sans',sans-serif] flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-600" />
                       Disclosed Verified Attributes ({verificationResult.disclosedAttributes.length})
                     </h4>
-                    <span className="text-xs text-emerald-400 font-mono font-medium">
-                      All proofs matched
+                    <span className="text-xs text-emerald-700 font-mono font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                      All proofs verified
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {verificationResult.disclosedAttributes.map((attr) => (
                       <div
                         key={attr.key}
-                        className="p-4 rounded-xl border-2 border-emerald-500/30 bg-emerald-950/20 flex items-center justify-between gap-3 shadow-md"
+                        className="p-4 sm:p-5 rounded-2xl border-2 border-emerald-500/25 bg-emerald-50/40 flex items-center justify-between gap-3 shadow-sm"
                       >
                         <div>
-                          <span className="text-[10px] font-bold tracking-wider uppercase text-emerald-400/90">
+                          <span className="text-[10px] font-bold tracking-wider uppercase text-emerald-900 font-['Sometype_Mono',monospace]">
                             {attr.key.replace(/_/g, " ")}
                           </span>
-                          <p className="text-sm sm:text-base font-extrabold text-white mt-0.5">
+                          <p className="text-base sm:text-lg font-black text-[#1A1523] mt-0.5 font-['Plus_Jakarta_Sans',sans-serif]">
                             {attr.value}
                           </p>
                         </div>
-                        <CheckCircle2 className="h-6 w-6 text-emerald-400 shrink-0" />
+                        <CheckCircle2 className="h-6 w-6 text-emerald-600 shrink-0" />
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Privacy Guarantee Notice */}
-                <Alert variant="info" className="border-indigo-900/40 bg-indigo-950/40 p-4">
-                  <Lock className="h-4 w-4 text-indigo-400" />
-                  <AlertTitle className="text-indigo-200 text-xs font-bold">
+                <Alert variant="info" className="border-[rgba(89,43,155,0.2)] bg-[#F7F5FB] p-5 rounded-2xl">
+                  <Lock className="h-5 w-5 text-[#592B9B]" />
+                  <AlertTitle className="text-[#1A1523] text-sm font-bold">
                     Zero-Knowledge Privacy Guarantee
                   </AlertTitle>
-                  <AlertDescription className="text-slate-200 text-xs leading-relaxed mt-1">
+                  <AlertDescription className="text-[#55505F] text-xs sm:text-sm leading-relaxed mt-1">
                     All undisclosed fields remain mathematically sealed and cryptographically unexposed.
                     The student has chosen to selectively prove only the attributes listed above.
                   </AlertDescription>
@@ -772,54 +743,54 @@ function VerifierContent() {
           {/* STATE 2: RED (REVOKED BY ISSUER)                                  */}
           {/* ================================================================= */}
           {verificationResult.status === VerificationStatus.REVOKED && (
-            <Card className="border-2 border-red-500 bg-gradient-to-b from-red-950/80 via-slate-900 to-slate-950 shadow-2xl ring-4 ring-red-500/20">
-              <div className="border-b border-red-500/50 bg-red-900/50 px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-pulse">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-red-500 text-slate-950 shadow-lg shadow-red-500/30 shrink-0">
-                    <Ban className="h-7 w-7 sm:h-9 sm:w-9" />
+            <Card className="rounded-[32px] border-2 border-red-500 bg-white shadow-2xl overflow-hidden ring-4 ring-red-500/10">
+              <div className="border-b border-red-100 bg-red-50/80 px-6 sm:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="p-2.5 rounded-2xl bg-red-600 text-white shadow-md shadow-red-600/30 shrink-0">
+                    <Ban className="h-8 w-8" />
                   </div>
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-red-200 tracking-tight">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-red-950 font-['Plus_Jakarta_Sans',sans-serif] tracking-tight">
                       CREDENTIAL HAS BEEN REVOKED
                     </h3>
-                    <p className="text-xs sm:text-sm text-red-300 font-medium">
-                      The issuing university has officially cancelled this academic credential on Polygon Amoy
+                    <p className="text-xs sm:text-sm text-red-800 font-medium">
+                      The issuing university has permanently cancelled this credential on Polygon Amoy
                     </p>
                   </div>
                 </div>
 
-                <Badge variant="destructive" className="text-xs px-2.5 py-1 self-start sm:self-auto bg-red-600 font-bold">
+                <Badge variant="destructive" className="text-xs px-3 py-1 bg-red-600 text-white font-bold">
                   Revoked Token #{verificationResult.tokenId}
                 </Badge>
               </div>
 
-              <CardContent className="p-4 sm:p-6 space-y-4">
-                <div className="p-4 rounded-xl bg-red-950/60 border-2 border-red-500/50 space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-red-400 flex items-center gap-1.5">
+              <CardContent className="p-6 sm:p-8 space-y-5">
+                <div className="p-5 rounded-2xl bg-red-50 border-2 border-red-200 space-y-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-red-700 flex items-center gap-1.5 font-['Sometype_Mono',monospace]">
                     <AlertTriangle className="h-4 w-4" />
                     Official On-Chain Revocation Reason
                   </span>
-                  <p className="text-base sm:text-lg font-black text-white">
+                  <p className="text-lg font-black text-red-950 font-['Plus_Jakarta_Sans',sans-serif]">
                     &quot;{verificationResult.revocationReason}&quot;
                   </p>
-                  <p className="text-xs text-slate-300 pt-1">
+                  <p className="text-xs text-red-800 pt-1">
                     Revocation Timestamp:{" "}
-                    <span className="text-white font-semibold">
+                    <span className="font-bold text-red-950">
                       {new Date(verificationResult.revokedAt * 1000).toUTCString()}
                     </span>
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-400">
-                  <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
-                    <span className="font-medium text-slate-400">Issuing Institution:</span>{" "}
-                    <span className="font-mono text-white block mt-0.5 break-all">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-[#55505F]">
+                  <div className="p-4 rounded-2xl bg-[#F7F5FB] border border-[#ECE8F2]">
+                    <span className="font-semibold text-[#1A1523]">Issuing Institution:</span>{" "}
+                    <span className="font-mono text-[#592B9B] block mt-1 break-all">
                       {verificationResult.issuerAddress}
                     </span>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
-                    <span className="font-medium text-slate-400">Original Issuance:</span>{" "}
-                    <span className="text-white block mt-0.5 font-semibold">
+                  <div className="p-4 rounded-2xl bg-[#F7F5FB] border border-[#ECE8F2]">
+                    <span className="font-semibold text-[#1A1523]">Original Issuance:</span>{" "}
+                    <span className="block mt-1 font-bold text-[#1A1523]">
                       {new Date(verificationResult.issuedAt * 1000).toLocaleDateString()}
                     </span>
                   </div>
@@ -832,58 +803,58 @@ function VerifierContent() {
           {/* STATE 3: RED (TAMPERED / INVALID)                                 */}
           {/* ================================================================= */}
           {verificationResult.status === VerificationStatus.TAMPERED && (
-            <Card className="border-2 border-red-500 bg-gradient-to-b from-red-950/80 via-slate-900 to-slate-950 shadow-2xl ring-4 ring-red-500/20">
-              <div className="border-b border-red-500/50 bg-red-900/50 px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-red-500 text-slate-950 shadow-lg shadow-red-500/30 shrink-0">
-                    <ShieldAlert className="h-7 w-7 sm:h-9 sm:w-9" />
+            <Card className="rounded-[32px] border-2 border-red-500 bg-white shadow-2xl overflow-hidden ring-4 ring-red-500/10">
+              <div className="border-b border-red-100 bg-red-50/80 px-6 sm:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="p-2.5 rounded-2xl bg-red-600 text-white shadow-md shadow-red-600/30 shrink-0">
+                    <ShieldAlert className="h-8 w-8" />
                   </div>
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-red-200 tracking-tight">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-red-950 font-['Plus_Jakarta_Sans',sans-serif] tracking-tight">
                       CRYPTOGRAPHIC PROOF FAILED
                     </h3>
-                    <p className="text-xs sm:text-sm text-red-300 font-medium">
+                    <p className="text-xs sm:text-sm text-red-800 font-medium">
                       Potential document forgery detected. Credential cannot be verified.
                     </p>
                   </div>
                 </div>
 
-                <Badge variant="destructive" className="bg-red-600 font-bold self-start sm:self-auto">
+                <Badge variant="destructive" className="bg-red-600 text-white font-bold">
                   Invalid / Forged
                 </Badge>
               </div>
 
-              <CardContent className="p-4 sm:p-6 space-y-4">
-                <Alert variant="destructive" className="bg-red-950/60 border-red-500/40 p-4">
-                  <AlertTriangle className="h-4 w-4" />
-                  <AlertTitle className="text-xs font-bold">Document Integrity Alert</AlertTitle>
-                  <AlertDescription className="text-xs leading-relaxed mt-1 text-red-200">
+              <CardContent className="p-6 sm:p-8 space-y-5">
+                <Alert variant="destructive" className="p-5 rounded-2xl">
+                  <AlertTriangle className="h-5 w-5" />
+                  <AlertTitle className="text-sm font-bold">Document Integrity Alert</AlertTitle>
+                  <AlertDescription className="text-xs sm:text-sm leading-relaxed mt-1 text-red-900 font-medium">
                     {verificationResult.errorMessage ||
                       "The disclosed attributes do not match the immutable Merkle root committed on Polygon Amoy. The data may have been altered, fabricated, or forged."}
                   </AlertDescription>
                 </Alert>
 
                 {verificationResult.disclosedAttributes.length > 0 && (
-                  <div className="space-y-2">
-                    <span className="text-xs font-bold text-slate-300">
+                  <div className="space-y-3">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#1A1523] font-['Sometype_Mono',monospace]">
                       Attribute Invariant Check Breakdown:
                     </span>
-                    <div className="space-y-2">
+                    <div className="space-y-2.5">
                       {verificationResult.disclosedAttributes.map((attr) => (
                         <div
                           key={attr.key}
-                          className="p-3 rounded-xl border border-slate-800 bg-slate-950 flex items-center justify-between text-xs"
+                          className="p-4 rounded-2xl border border-[#ECE8F2] bg-[#F7F5FB] flex items-center justify-between text-xs"
                         >
                           <div>
-                            <span className="text-slate-400 font-mono mr-2">{attr.key}:</span>
-                            <span className="text-white font-semibold">{attr.value}</span>
+                            <span className="text-[#55505F] font-mono mr-2 font-bold">{attr.key}:</span>
+                            <span className="text-[#1A1523] font-semibold">{attr.value}</span>
                           </div>
                           {attr.isValid ? (
-                            <span className="text-emerald-400 font-bold flex items-center gap-1 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                            <span className="text-emerald-800 font-bold flex items-center gap-1 bg-emerald-100 px-2.5 py-0.5 rounded-full">
                               <CheckCircle2 className="h-3.5 w-3.5" /> Valid
                             </span>
                           ) : (
-                            <span className="text-red-400 font-bold flex items-center gap-1 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20">
+                            <span className="text-red-700 font-bold flex items-center gap-1 bg-red-100 px-2.5 py-0.5 rounded-full">
                               <Ban className="h-3.5 w-3.5" /> FAILED
                             </span>
                           )}
@@ -898,22 +869,27 @@ function VerifierContent() {
         </div>
       )}
 
-      {/* Verification Protocol Explainer */}
-      <Card className="border-slate-800 bg-slate-950/40">
-        <CardHeader className="p-4 sm:p-6 pb-2">
-          <CardTitle className="text-xs sm:text-sm font-semibold text-slate-300 flex items-center gap-2">
-            <HelpCircle className="h-4 w-4 text-indigo-400" />
+      {/* Protocol Explainer Card */}
+      <Card className="rounded-[28px] border border-[rgba(89,43,155,0.12)] bg-[#F7F5FB]/70">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <HelpCircle className="h-4 w-4 text-[#592B9B]" />
+            <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-wider text-[#592B9B]">
+              Sub-2s Proof Engine Architecture
+            </span>
+          </div>
+          <CardTitle className="text-base sm:text-lg font-bold text-[#1A1523] mt-1">
             Why VeriVault Verifications Complete in Milliseconds
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-4 sm:p-6 pt-0 text-xs text-slate-400 space-y-2 leading-relaxed">
+        <CardContent className="text-xs sm:text-sm text-[#55505F] space-y-2 leading-relaxed pt-0">
           <p>
             Traditional credential verifiers take days or weeks communicating with university registrars.
             VeriVault executes in milliseconds by reading the immutable 32-byte Merkle root on Polygon Amoy
             and proving Keccak-256 leaf commitments client-side.
           </p>
           <p>
-            No user tracking, no cookies, no Web3 wallet connection required for employers or verifiers.
+            No user tracking, no cookies, and no Web3 wallet connection required for employers or verifiers.
           </p>
         </CardContent>
       </Card>
@@ -925,9 +901,9 @@ export default function VerifyPage() {
   return (
     <Suspense
       fallback={
-        <div className="container max-w-5xl mx-auto px-4 py-16 text-center text-slate-400 space-y-3">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-indigo-400" />
-          <p className="text-sm">Initializing Public Instant Verifier...</p>
+        <div className="max-w-[1248px] mx-auto px-4 py-20 text-center text-[#55505F] space-y-3">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto text-[#592B9B]" />
+          <p className="text-sm font-medium font-['Plus_Jakarta_Sans',sans-serif]">Initializing Public Instant Verifier...</p>
         </div>
       }
     >

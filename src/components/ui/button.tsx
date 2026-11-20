@@ -4,26 +4,28 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:pointer-events-none disabled:opacity-50 select-none",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#592B9B]/20 disabled:pointer-events-none disabled:opacity-50 select-none cursor-pointer",
   {
     variants: {
       variant: {
         default:
-          "bg-indigo-600 text-white shadow-sm hover:bg-indigo-500 active:bg-indigo-700",
+          "bg-[#F16221] text-white shadow-md shadow-[#F16221]/20 hover:bg-[#d95216] hover:scale-[1.02] active:scale-[0.98]",
         destructive:
-          "bg-red-600 text-white shadow-sm hover:bg-red-500 active:bg-red-700",
+          "bg-[#EF4444] text-white shadow-md shadow-[#EF4444]/20 hover:bg-[#dc2626] hover:scale-[1.02] active:scale-[0.98]",
         outline:
-          "border border-slate-700 bg-transparent text-slate-100 hover:bg-slate-800/80 active:bg-slate-800",
+          "border border-[#ECE8F2] bg-white text-[#1A1523] hover:bg-[#F7F5FB] hover:border-[#592B9B]/30 hover:scale-[1.01] active:scale-[0.98] shadow-sm",
         secondary:
-          "bg-slate-800 text-slate-100 hover:bg-slate-700 active:bg-slate-800",
-        ghost: "text-slate-300 hover:bg-slate-800 hover:text-white",
-        link: "text-indigo-400 underline-offset-4 hover:underline",
+          "bg-[#F7F5FB] text-[#1A1523] border border-[#ECE8F2] hover:bg-white hover:border-[#592B9B]/30 hover:scale-[1.01] active:scale-[0.98] shadow-sm",
+        ghost:
+          "text-[#55505F] hover:text-[#1A1523] hover:bg-[#F7F5FB] active:scale-[0.98]",
+        link:
+          "text-[#F16221] underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-11 rounded-lg px-8 text-base",
-        icon: "h-9 w-9",
+        default: "h-11 px-6 py-2.5",
+        sm: "h-9 rounded-full px-4 text-xs",
+        lg: "h-12 rounded-full px-8 text-base",
+        icon: "h-10 w-10",
       },
     },
     defaultVariants: {
