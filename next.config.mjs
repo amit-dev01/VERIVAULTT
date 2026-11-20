@@ -6,6 +6,7 @@ const nextConfig = {
       ...config.resolve.alias,
       "@base-org/account": false,
       "@coinbase/cdp-sdk": false,
+      "@react-native-async-storage/async-storage": false,
     };
     return config;
   },
