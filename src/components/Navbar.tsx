@@ -43,6 +43,8 @@ export function Navbar() {
   const { isConnected } = useAccount();
   const chainId = useChainId();
 
+  if (pathname === "/") return null;
+
   const isPolygonAmoy = chainId === 80002;
 
   return (
