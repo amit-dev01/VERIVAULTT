@@ -5,7 +5,6 @@ import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { toast } from "sonner";
 import {
-  Wallet,
   ShieldCheck,
   Upload,
   Copy,
@@ -19,8 +18,6 @@ import {
   AlertCircle,
   Trash2,
   FolderOpen,
-  ArrowRight,
-  Lock,
 } from "lucide-react";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { RotateCcw, Check, ShieldCheck, ExternalLink } from "lucide-react";
+import { RotateCcw, Check, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { VERIVAULT_CONTRACT_ADDRESS } from "@/config/contract";
 

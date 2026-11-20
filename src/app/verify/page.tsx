@@ -25,7 +25,6 @@ import {
   Landmark,
   BadgeCheck,
   Award,
-  ArrowRight,
 } from "lucide-react";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";

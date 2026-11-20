@@ -13,7 +13,6 @@ import { polygonAmoy } from "wagmi/chains";
 import { parseEventLogs, isAddress } from "viem";
 import { toast } from "sonner";
 import {
-  GraduationCap,
   Award,
   Send,
   Ban,
@@ -28,14 +27,11 @@ import {
   BookOpen,
   Calendar,
   Sparkles,
-  FileCode,
   Info,
   Wallet,
   Radio,
   Zap,
   Building2,
-  ArrowRight,
-  Lock,
 } from "lucide-react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
