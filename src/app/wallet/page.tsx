@@ -5,6 +5,7 @@ import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { toast } from "sonner";
 import {
+  Wallet,
   ShieldCheck,
   Upload,
   Copy,
@@ -265,12 +266,9 @@ export default function WalletPage() {
       {/* -------------------------------------------------------------------- */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#ECE8F2]">
         <div className="space-y-3 max-w-2xl">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ef4444] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ef4444]" />
-            </span>
-            <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-[0.12em] text-[#592B9B]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#592B9B]/8 text-[#592B9B] border border-[#592B9B]/15">
+            <Wallet className="h-3.5 w-3.5 text-[#592B9B]" />
+            <span className="font-['Sometype_Mono',monospace] text-xs font-bold uppercase tracking-[0.1em]">
               Student Zero-Knowledge Vault
             </span>
           </div>
@@ -438,10 +436,10 @@ export default function WalletPage() {
                 {/* Traffic lights header */}
                 <div className="flex items-center justify-between px-6 sm:px-8 py-4 border-b border-[#ECE8F2] bg-[#F7F5FB]/60">
                   <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                    <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                    <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                    <span className="ml-2 font-['Sometype_Mono',monospace] text-[11px] font-bold uppercase tracking-wider text-[#592B9B]">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#592B9B]/10 text-[#592B9B]">
+                      <Sparkles className="h-3.5 w-3.5" />
+                    </div>
+                    <span className="font-['Sometype_Mono',monospace] text-[11px] font-bold uppercase tracking-wider text-[#592B9B]">
                       Zero-Knowledge Disclosure Matrix
                     </span>
                   </div>

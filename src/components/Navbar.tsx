@@ -54,28 +54,20 @@ export function Navbar() {
         <div className="flex items-center gap-8">
           <Link
             href="/"
-            className="flex items-center gap-3 transition-opacity hover:opacity-90 group"
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-90 group"
           >
-            {/* Momentum Pulse Dot */}
-            <div className="relative flex items-center justify-center">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ef4444] animate-momentum-pulse" />
-              <span className="absolute w-4 h-4 rounded-full bg-[#ef4444]/30 animate-ping pointer-events-none" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#592B9B]/10 text-[#592B9B] border border-[#592B9B]/20 transition-transform group-hover:scale-105">
+              <ShieldCheck className="h-4 w-4" />
             </div>
-
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#592B9B]/10 text-[#592B9B] border border-[#592B9B]/20 transition-transform group-hover:scale-105">
-                <ShieldCheck className="h-4 w-4" />
-              </div>
-              <span
-                className="text-lg font-extrabold tracking-[-0.04em] text-[#1A1523]"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                VeriVault
-                <span className="ml-1 text-[10px] font-bold tracking-[0.1em] text-[#592B9B] uppercase font-mono">
-                  Amoy
-                </span>
+            <span
+              className="text-lg font-extrabold tracking-[-0.04em] text-[#1A1523]"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
+              VeriVault
+              <span className="ml-1 text-[10px] font-bold tracking-[0.1em] text-[#592B9B] uppercase font-mono">
+                Amoy
               </span>
-            </div>
+            </span>
           </Link>
 
           {/* Desktop Navigation Links */}
