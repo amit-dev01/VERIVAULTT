@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Sometype+Mono:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Sometype+Mono:wght@600;700&family=Outfit:wght@400;500;600;700;800&family=Reenie+Beanie&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -26,6 +26,26 @@ body {
   animation: momentumPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@keyframes softlyFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes softlyFloatSlow {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(14px) rotate(-2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-softly-float {
+  animation: softlyFloat 6s ease-in-out infinite;
+}
+
+.animate-softly-float-slow {
+  animation: softlyFloatSlow 8s ease-in-out infinite;
+}
+
 .glass-card {
   background: rgba(89, 43, 155, 0.03);
   backdrop-filter: blur(4px);
@@ -50,9 +70,18 @@ body {
   background: #F7F5FB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #ECE8F2;
+  background: #D9D2E9;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #592B9B;
+}
+
+/* Hide scrollbar for scenario scroll while allowing touch */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
